@@ -1,0 +1,1 @@
+../executables/macos/flanck ./helloWorld.flanck 0
