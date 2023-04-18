@@ -41,21 +41,24 @@ Beispielsweise entspricht `01100001` der Eingabe `a`.*
 
 ## SYNTAX
 
-1. Es kann so viele Spalten geben wie man möchte
-2. Jeder Befehl wird durch eine neue Linie getrennt
-3. Alle zeichen bis auf die folgenenden werden ignoriert: []:01\n
-4. Ein Befehl besteht aus den spalten und was daraus gelesen werden einem : und was auf den spalten geschrieben wird
-5. Es muss immer ein : geben, wie viele lese und schreibe spalten es gibt ist egal
-6. gibt es mehr lese als schreibe oder mehr schreibe als lese spalten, wird rechts alle nicht angegebenen so gewertet, das sie weder gelesen, noch geschrieben werden
-7. eine spalte wird mit [ angefangen und mit ] beendet
-8. das linkeste zeichen wird zu erst gelesen, das rechte zu erst auf die spalte gelegt
-9. man kann nur 0 und 1 auf eine spalte legen bzw. lesen
-10. die erste spalte ist dem lesen, die zwei dem schreiben gewidmet
-11. Die befehle werden von oben nach unten durchgeführt, wenn kein befehl mehr übrig ist, wird wieder von oben angefangen
-12. das programm kann per standart nicht beendet werden, der interpretierer kann jedoch entscheiden das programm zu ändern wenn bei einem kompletten durchlauf kein stapel verändert wird, oder wenn das EOT zeichen ausgegeben wird
-13. Das Zeichen was zuerst in der Spalte liegt wird zuerst ausgegeben
-14. Comments macht man mit #, gibt nur Zeilenkommentare
-15. Programm Input kann als Text oder als Binär gegeben werden, dabei wird Text als Binär Interpretiert
+# TO-DO: der erste Keller soll als Ausgabe dienen, nicht der zweite
+# TO-DO: es soll auch möglich sein, in der Eingabe Keller zu überspringen
+# TO-DO: mit '<' zu Begin der Zeile soll, bei erfüllter Bedingung, der Ausgabekeller direkt ausgegeben werden und nicht erst am Ende des Programms (nicht geleert)
+# TO-DO: mit > zu Begin der Zeile wird so lange auf eine Benutzereingabe gewartet, bis die Bedingung des Statements akzeptiert ist; auch falsche Eingaben werden gespeichert
+
+1. Es kann so viele Keller geben wie man möchte
+2. Pro Zeile darf es nur ein Statement geben
+3. Jedes Statement setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Anweisungen zusammen.
+4. Es müssen keine Bedingungen oder Anweisungen in einem Statement vorkommen.
+5. Mit `#` kann ein Zeilenkommentar gestartet werden, alles danach wird bis zum Ende der Zeile ignoriert.
+6. Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gibt die Bedingung als nicht erfüllt.
+7. Ein Keller wird mit `[` angefangen und mit `]` beendet.
+8. Die Statements werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
+9. Die Keller verwalten als Symbole nur `0` und `1`.
+10. Der Inhalt des zweiten Stapels wird am Ende des Programms als Ascii UTF-8 interpretiert und ausgegeben, dabei wird unten im Stapel angefangen.
+11. Die Statements werden von oben nach unten abgearbeitet.
+12. Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text als Binär Interpretiert
+13. Der Ausgabekeller wird am Ende des Programms ausgegeben
 
 ## EXAMPLES
 

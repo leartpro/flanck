@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ -std=c++11 ../src/flanck.cpp -o flanck
+g++ -std=c++17 ../src/flanck.cpp -o flanck
