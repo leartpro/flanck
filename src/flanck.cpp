@@ -6,7 +6,7 @@ using namespace std;
 
 /**
  *
- * @param argc darf nicht größer als zwei sein
+ * @param argc darf nicht größer als drei sein
  * @param argv die .flanck Datei und optional einen Input in der Form: 010|00|1111 (keller durch '|' getrennt)
  * @return 0 wenn es zu keinem Fehler gekommen ist
  */
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
         cerr << "Unexpected arguments " << endl;
         return 1;
     }
-    //if file exists
+    //validate file exists
     ifstream is(argv[1]);
     if (!is) {
         cerr << "Could not open file " << argv[1] << endl;
@@ -48,13 +48,14 @@ int main(int argc, char *argv[]) {
     //initialize program stack / lexing+parsing
     vector<pair<vector<vector<bool> >, vector<vector<bool> > > > programStack; //first=conditions, second=instructions
     int position = 0;
-    while (position < ::strlen(programText)) {
+    int total_stacks_count = 0;
+    while (position < sizeof(programText)) {
         vector<vector<bool> > read;
         vector<vector<bool> > write;
         bool valueAllowed = false;
         bool hasDivider = false;
         vector<bool> stack;
-        while (programText[position] != '\n' && position < ::strlen(programText)) {
+        while (programText[position] != '\n' && position < sizeof(programText)) {
             switch (programText[position]) {
                 case '[':
                     if (valueAllowed) {
@@ -87,10 +88,24 @@ int main(int argc, char *argv[]) {
                         cerr << "Syntax error " << endl;
                         return 1;
                     }
-                    while (position < ::strlen(programText)) {
+                    while (position < sizeof(programText)) {
                         stack.push_back(programText[position] == '0');
                         if (programText[position + 1] == '0' || programText[position + 1] == '1') {
                             ++position;
+                        } else {
+                            break;
+                        }
+                    }
+                    break;
+                case '#':
+                    if (valueAllowed) {
+                        cerr << "Syntax error " << endl;
+                        return 1;
+                    }
+                    while(position < sizeof(programText)) {
+                        position++;
+                        if(programText[position + 1] != '\n') {
+                            position++;
                         } else {
                             break;
                         }
@@ -100,16 +115,23 @@ int main(int argc, char *argv[]) {
             position++;
         }
         position++;
+        if (valueAllowed) {
+            cerr << "Syntax error " << endl;
+            return 1;
+        }
         programStack.emplace_back(read, write);
+        if(max(read.size(), write.size()) > total_stacks_count) {
+            total_stacks_count = int(max(read.size(), write.size()));
+        }
     }
+    //initialize all stacks
+    stacks.reserve(total_stacks_count);
+    while (stacks.size() < total_stacks_count) stacks.emplace_back();
     //executes program stack / interpret
     bool stackChanged = true;
     while (stackChanged) {
         stackChanged = false;
         for (const auto &statement: programStack) {
-            //dynamically add stacks
-            int count_of_stacks = int(max(statement.first.size(), statement.second.size()));
-            while (stacks.size() < count_of_stacks) stacks.push_back(*new vector<bool>());
             //validate conditions
             for (int stack_index = 0; stack_index < statement.first.size(); stack_index++) {
                 if(statement.first[stack_index].size() > stacks[stack_index].size()) goto next_statement;

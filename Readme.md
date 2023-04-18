@@ -44,6 +44,7 @@ Hier wird auf die ersten drei Stapel gelegt.
 11. Die befehle werden von oben nach unten durchgeführt, wenn kein befehl mehr übrig ist, wird wieder von oben angefangen
 12. das programm kann per standart nicht beendet werden, der interpretierer kann jedoch entscheiden das programm zu ändern wenn bei einem kompletten durchlauf kein stapel verändert wird, oder wenn das EOT zeichen ausgegeben wird
 13. Das Zeichen was zuerst in der Spalte liegt wird zuerst ausgegeben
+14. Comments macht man mit #, gibt nur Zeilenkommentare
 
 ## EXAMPLES
 
