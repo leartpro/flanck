@@ -14,7 +14,7 @@ von einem Keller gelesen werden können, als auch hinzugefügt werden können.
 ## USAGE
 
 Um eine ``.flanck`` Datei auszuführen muss der Pfad zur Datei angegeben werden.
-Optional kann ein Input als zweiter Parameter angegeben werden.
+Optional kann ein Input angegeben werden.
 Dabei kann der Input für jeden Keller separat angegeben werden.
 Ein beispielhafter Aufruf in der Konsole könnte sein:
 ```sh
@@ -25,9 +25,19 @@ und bekommt ``0`` als zusätzlichen Parameter.
 
 Ein weiter Aufruf könnte wie folgt aussehen:
 ```sh
-    $ flanck example.flanck 0|10010|1111
+    $ flanck example.flanck 0 10010 1111
 ```
 Hier wird auf die ersten drei Stapel gelegt.
+
+Wenn Text als Input gegeben wird, wird dieser zu Binär umgewandelt.
+```sh
+    $ flanck example.flanck Hello World! 0
+```
+Hier wird auf die ersten drei Stapel gelegt, wobei `Hello` und `World!` zu Binär interpretiert werden.
+Die `0` aber wird als Binär (`0`) und nicht als Ascii (`00110000`) auf den Keller gelegt.
+
+*Es ist zu beachten, dass der binäre Input von rechts nach links auf den Keller gelegt wird.
+Beispielsweise entspricht `01100001` der Eingabe `a`.*
 
 ## SYNTAX
 
@@ -45,6 +55,7 @@ Hier wird auf die ersten drei Stapel gelegt.
 12. das programm kann per standart nicht beendet werden, der interpretierer kann jedoch entscheiden das programm zu ändern wenn bei einem kompletten durchlauf kein stapel verändert wird, oder wenn das EOT zeichen ausgegeben wird
 13. Das Zeichen was zuerst in der Spalte liegt wird zuerst ausgegeben
 14. Comments macht man mit #, gibt nur Zeilenkommentare
+15. Programm Input kann als Text oder als Binär gegeben werden, dabei wird Text als Binär Interpretiert
 
 ## EXAMPLES
 

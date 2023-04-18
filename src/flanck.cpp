@@ -6,13 +6,13 @@ using namespace std;
 
 /**
  *
- * @param argc darf nicht größer als drei sein
- * @param argv die .flanck Datei und optional einen Input in der Form: 010|00|1111 (keller durch '|' getrennt)
+ * @param argc darf nicht kleiner als zwei sein
+ * @param argv die .flanck Datei und optional weitere Argumente, wobei jedes Argument Binär auf den entsprechenden Keller gelegt wird
  * @return 0 wenn es zu keinem Fehler gekommen ist
  */
 int main(int argc, char *argv[]) {
-    //if size of arguments is correct
-    if (argc > 3) {
+    //validate size of arguments
+    if (argc < 2) {
         cerr << "Unexpected arguments " << endl;
         return 1;
     }
@@ -35,15 +35,28 @@ int main(int argc, char *argv[]) {
     programText[index] = '\0';
     //initialize stacks
     vector<vector<bool> > stacks;
-    if (argc == 3) {
-        for (int i = 0; i < ::strlen(argv[2]); i++) {
-            vector<bool> stack;
-            while (argv[2][i] != '|' && i < ::strlen(argv[2])) {
-                stack.push_back(argv[2][i] == '0');
-                i++;
+    for (int pos = 2; pos < argc; pos++) {
+        vector<bool> stack;
+        bool is_binary = true;
+        for (int i = 0; i < ::strlen(argv[pos]); ++i) {
+            if (argv[pos][i] != '0' && argv[pos][i] != '1') {
+                is_binary = false;
+                break;
             }
-            stacks.push_back(stack);
         }
+        if (is_binary) {
+            for (int i = int(::strlen(argv[pos])) - 1; i >= 0; i--) {
+                stack.push_back(argv[pos][i] == '0');
+            }
+        } else {
+            for (int i = 0; i < ::strlen(argv[pos]); i++) {
+                for (int j = 0; j < 8; j++) {
+                    stack.push_back((argv[pos][i] & (1 << j)) == 0);
+                }
+            }
+        }
+        stacks.push_back(stack);
+        stack.clear();
     }
     //initialize program stack / lexing+parsing
     vector<pair<vector<vector<bool> >, vector<vector<bool> > > > programStack; //first=conditions, second=instructions
@@ -102,9 +115,9 @@ int main(int argc, char *argv[]) {
                         cerr << "Syntax error " << endl;
                         return 1;
                     }
-                    while(position < sizeof(programText)) {
+                    while (position < sizeof(programText)) {
                         position++;
-                        if(programText[position + 1] != '\n') {
+                        if (programText[position + 1] != '\n') {
                             position++;
                         } else {
                             break;
@@ -120,7 +133,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
         programStack.emplace_back(read, write);
-        if(max(read.size(), write.size()) > total_stacks_count) {
+        if (max(read.size(), write.size()) > total_stacks_count) {
             total_stacks_count = int(max(read.size(), write.size()));
         }
     }
@@ -134,9 +147,10 @@ int main(int argc, char *argv[]) {
         for (const auto &statement: programStack) {
             //validate conditions
             for (int stack_index = 0; stack_index < statement.first.size(); stack_index++) {
-                if(statement.first[stack_index].size() > stacks[stack_index].size()) goto next_statement;
-                for(int stack_position = 0; stack_position < statement.first[stack_index].size(); stack_position++) {
-                    if(statement.first[stack_index][stack_position] != stacks[stack_index][stacks[stack_index].size() -1 - stack_position]) {
+                if (statement.first[stack_index].size() > stacks[stack_index].size()) goto next_statement;
+                for (int stack_position = 0; stack_position < statement.first[stack_index].size(); stack_position++) {
+                    if (statement.first[stack_index][stack_position] !=
+                        stacks[stack_index][stacks[stack_index].size() - 1 - stack_position]) {
                         goto next_statement;
                     }
                 }
@@ -144,13 +158,15 @@ int main(int argc, char *argv[]) {
             //remove conditions from stacks
             for (int stack_index = 0; stack_index < statement.first.size(); stack_index++) {
                 if (stacks[stack_index].size() > statement.first[stack_index].size())
-                    stacks[stack_index].erase(stacks[stack_index].begin() + int(stacks[stack_index].size() - statement.first[stack_index].size()),
+                    stacks[stack_index].erase(stacks[stack_index].begin() +
+                                              int(stacks[stack_index].size() - statement.first[stack_index].size()),
                                               stacks[stack_index].end());
                 else stacks[stack_index].erase(stacks[stack_index].begin(), stacks[stack_index].end());
             }
             //execute instructions
             for (int stack_index = 0; stack_index < statement.second.size(); stack_index++) {
-                for (int stack_position = int(statement.second[stack_index].size()); stack_position > 0; stack_position--) {
+                for (int stack_position = int(statement.second[stack_index].size());
+                     stack_position > 0; stack_position--) {
                     stacks[stack_index].push_back(statement.second[stack_index][stack_position - 1]);
                     stackChanged = true;
                 }
@@ -163,7 +179,7 @@ int main(int argc, char *argv[]) {
     int size = int(stacks[1].size() - (stacks[1].size() % 8));
     for (int i = 0; i < size; i += 8) {
         std::bitset<8> byte;
-        for (int j = 0; j < 8; j++) byte[7-j] = (!stacks[1][i + j]);
+        for (int j = 0; j < 8; j++) byte[7 - j] = (!stacks[1][i + j]);
         cout << char(byte.to_ulong());
     }
     return 0;
