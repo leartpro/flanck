@@ -80,7 +80,7 @@ struct Stack {
             }
         } else {
             for (int i = 0; i < ::strlen(input); i++) {
-                for (int j = 0; j < 8; j++) {
+                for (int j = 7; j >= 0; j--) {
                     stack.push_back((input[i] & (1 << j)) == 0);
                 }
             }
@@ -94,7 +94,7 @@ struct Stack {
         int size = int(stack.size() - (stack.size() % 8));
         for (int i = 0; i < size; i += 8) {
             std::bitset<8> byte;
-            for (int j = 0; j < 8; j++) byte[7 - j] = (!stack[i + j]);
+            for (int j = 0; j < 8; j++) byte[j] = (!stack[i + j]);
             cout << char(byte.to_ulong());
         }
     }
@@ -105,7 +105,6 @@ struct Stack {
  */
 struct Statement {
     vector<Stack> conditions, instructions;
-    bool inputRequest, runtimePrint;
 
     /**
      *
@@ -114,11 +113,9 @@ struct Statement {
      * @param inputRequest
      * @param runtimePrint
      */
-    Statement(vector<Stack> conditions, vector<Stack> instructions, bool inputRequest, bool runtimePrint) {
+    Statement(vector<Stack> conditions, vector<Stack> instructions) {
         this->conditions = std::move(conditions);
         this->instructions = std::move(instructions);
-        this->inputRequest = inputRequest;
-        this->runtimePrint = runtimePrint;
     }
 
     /**
@@ -128,16 +125,11 @@ struct Statement {
      */
     bool execute(vector<Stack> &stacks) {
         if (!validateConditions(stacks)) {
-            if (inputRequest) {
-                handleInputRequest(stacks);
-            } else {
-                removeConditionsFromStacks(stacks);
-                return false;
-            }
+            // TODO ???? removeConditionsFromStacks(stacks);
+            return false;
         }
         bool stackChanged = removeConditionsFromStacks(stacks);
         if (executeInstructions(stacks)) stackChanged = true;
-        if (runtimePrint) stacks[1].print();
         return stackChanged;
     }
 
@@ -183,12 +175,14 @@ private:
      */
     bool validateConditions(vector<Stack> &stacks) {
         for (int stack_index = 0; stack_index < conditions.size(); stack_index++) {
+            Stack program_stack = stacks[stack_index];
             if (conditions[stack_index].size() > stacks[stack_index].size()) {
                 return false;
             }
+            int first_program_stack_index = program_stack.size() - conditions[stack_index].size();
             for (int stack_position = 0; stack_position < conditions[stack_index].size(); stack_position++) {
                 if (conditions[stack_index].get(stack_position) !=
-                    stacks[stack_index].get(stacks[stack_index].size() - 1 - stack_position)) {
+                    stacks[stack_index].get(first_program_stack_index + stack_position)) {
                     return false;
                 }
             }
@@ -236,19 +230,7 @@ tuple<vector<Statement>, int, bool> buildProgramStack(const char *programText) {
         vector<Stack> write;
         bool valueAllowed = false;
         bool hasDivider = false;
-        bool runtimePrint = false;
-        bool inputRequest = false;
         Stack stack;
-        switch (programText[position]) {
-            case '<':
-                runtimePrint = true;
-                position++;
-                break;
-            case '>':
-                inputRequest = true;
-                position++;
-                break;
-        }
         while (programText[position] != '\n' && position < ::strlen(programText)) {
             switch (programText[position]) {
                 case '[':
@@ -313,7 +295,7 @@ tuple<vector<Statement>, int, bool> buildProgramStack(const char *programText) {
             cerr << "Syntax error " << endl;
             return {programStack, total_stacks_count, false};
         }
-        programStack.emplace_back(read, write, inputRequest, runtimePrint);
+        programStack.emplace_back(read, write);
         if (max(read.size(), write.size()) > total_stacks_count) {
             total_stacks_count = int(max(read.size(), write.size()));
         }
@@ -361,7 +343,7 @@ int main(int argc, char **argv) {
     auto [programStack, total_stacks_count, validSyntax] = buildProgramStack(programText);
     if (!validSyntax) return 1;
     //initialize all stacks
-    if(total_stacks_count > stacks.size()) {
+    if (total_stacks_count > stacks.size()) {
         stacks.resize(total_stacks_count);
     }
     while (stacks.size() < total_stacks_count) stacks.emplace_back();
