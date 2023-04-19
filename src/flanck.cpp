@@ -51,8 +51,8 @@ struct Stack {
      * @param from
      * @param to
      */
-    void remove(int from, int to) {
-        stack.erase(stack.begin() + from, stack.begin() + to);
+    void remove(int n) {
+        stack.resize(stack.size() - n);
     }
 
     /**
@@ -159,6 +159,7 @@ private:
         }
         return stackChanged;
     }
+
     /**
      *
      * @param stacks
@@ -168,8 +169,7 @@ private:
         for (int stack_index = 0; stack_index < conditions.size(); stack_index++) {
             if (stacks[stack_index].size() > conditions[stack_index].size()) {
                 stacks[stack_index].remove(
-                        int(stacks[stack_index].size() - conditions[stack_index].size()),
-                        stacks[stack_index].size() - 1
+                        conditions[stack_index].size()
                 );
             } else stacks[stack_index].clear();
         }
@@ -227,11 +227,11 @@ private:
  * @param programText
  * @return
  */
-tuple<vector<Statement>, int, bool> buildProgramStack(const char* programText) {
+tuple<vector<Statement>, int, bool> buildProgramStack(const char *programText) {
     vector<Statement> programStack;
     int position = 0;
     int total_stacks_count = 0;
-    while (position < sizeof(programText)) {
+    while (position < ::strlen(programText)) {
         vector<Stack> read;
         vector<Stack> write;
         bool valueAllowed = false;
@@ -249,7 +249,7 @@ tuple<vector<Statement>, int, bool> buildProgramStack(const char* programText) {
                 position++;
                 break;
         }
-        while (programText[position] != '\n' && position < sizeof(programText)) {
+        while (programText[position] != '\n' && position < ::strlen(programText)) {
             switch (programText[position]) {
                 case '[':
                     if (valueAllowed) {
@@ -282,7 +282,7 @@ tuple<vector<Statement>, int, bool> buildProgramStack(const char* programText) {
                         cerr << "Syntax error " << endl;
                         return {programStack, total_stacks_count, false};
                     }
-                    while (position < sizeof(programText)) {
+                    while (position < ::strlen(programText)) {
                         stack.add(programText[position] == '0');
                         if (programText[position + 1] == '0' || programText[position + 1] == '1') {
                             ++position;
@@ -352,16 +352,18 @@ int main(int argc, char **argv) {
     programText[index] = '\0';
     //initialize stacks
     vector<Stack> stacks;
-        for (int pos = 2; pos < argc; pos++) {
-            Stack stack;
-            stack.pushUserInput(argv[pos]);
-            stacks.push_back(stack);
+    for (int pos = 2; pos < argc; pos++) {
+        Stack stack;
+        stack.pushUserInput(argv[pos]);
+        stacks.push_back(stack);
     }
     //lexing and parsing
-    auto[programStack, total_stacks_count, validSyntax] = buildProgramStack(programText);
-    if(!validSyntax) return 1;
+    auto [programStack, total_stacks_count, validSyntax] = buildProgramStack(programText);
+    if (!validSyntax) return 1;
     //initialize all stacks
-    stacks.resize(total_stacks_count);
+    if(total_stacks_count > stacks.size()) {
+        stacks.resize(total_stacks_count);
+    }
     while (stacks.size() < total_stacks_count) stacks.emplace_back();
     //executes program stack / interpret
     bool stackChanged;
