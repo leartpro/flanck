@@ -44,12 +44,19 @@ vector<Statement> *Parser::parse() {
             }
             getNextToken();
         }
+        getNextToken();
         programStack->emplace_back(Statement(conditions, instructions));
+        int currentMaxNumStacks = max(conditions.size(), instructions.size());
+        maxNumStacks_ = max(currentMaxNumStacks, maxNumStacks_);
     }
     return programStack;
 }
 
 void Parser::getNextToken() {
     currentToken_ = lexer_.getNextToken();
+}
+
+int Parser::getMaxNumStacks() {
+    return maxNumStacks_;
 }
 

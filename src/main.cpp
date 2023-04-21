@@ -9,31 +9,35 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-    ifstream is(argv[2]);
-    if (!is) {
-        cerr << "Could not open file " << argv[2] << endl;
+    //validate size of arguments
+    if (argc < 2) {
+        cerr << "Unexpected arguments " << endl;
         return 1;
     }
-
+    //validate file exists
+    ifstream is(argv[1]);
+    if (!is) {
+        cerr << "Could not open file " << argv[1] << endl;
+        return 1;
+    }
+    //read file
     is.seekg(0, ifstream::end);
     size_t fileSize = is.tellg();
     is.seekg(0, ifstream::beg);
     char programText[fileSize + 1];
-    size_t i = 0;
+    size_t index = 0;
     char c;
     while (is.get(c)) {
-        programText[i++] = c;
+        programText[index++] = c;
     }
-    programText[i] = '\0';
-
-    cout << programText << endl << static_cast <const void *> (programText) << endl;
+    programText[index] = '\0';
 
     try {
         Lexer lexer(programText);
         Parser parser(lexer);
         vector<Statement> *programStack = parser.parse();
         Interpreter interpreter;
-        cout << "Result: " << interpreter.interpret(programText) << endl;
+        interpreter.interpret(programStack);
         delete programStack;
     }
     catch (exception &e) {

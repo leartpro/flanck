@@ -11,9 +11,8 @@ class Interpreter
 {
 public:
     Interpreter() = default;
-    double interpret(AstNode* root);
-    void setVariable(const string& name, double value);
+    void interpret(vector<Statement>* programStack);
 private:
-    unordered_map<std::string, double> variables_;
+    vector<Stack> stacks_;
 };
 #endif //PLANCK_INTERPRETER_H
