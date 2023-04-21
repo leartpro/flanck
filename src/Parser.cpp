@@ -6,6 +6,7 @@ vector<Statement> *Parser::parse() {
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;
         bool hasDivider = false;
+        bool emptyStatement = true; //holds track if a statement contains only empty stacks
         vector<Stack> conditions;
         vector<Stack> instructions;
         vector<bool> currentStack;
@@ -20,17 +21,19 @@ vector<Statement> *Parser::parse() {
                     if(!valueExpected) break;
                     valueExpected = false;
                     if(!hasDivider) {
-                        conditions.emplace_back(Stack(currentStack));
+                        conditions.emplace_back(currentStack);
                     } else {
-                        instructions.emplace_back(Stack(currentStack));
+                        instructions.emplace_back(currentStack);
                     }
                     break;
                 case Token::Zero:
                     if(!valueExpected) break;
+                    emptyStatement = false;
                     currentStack.push_back(false);
                     break;
                 case Token::One:
                     if(!valueExpected) break;
+                    emptyStatement = false;
                     currentStack.push_back(true);
                     break;
                 case Token::Divider:
@@ -45,9 +48,11 @@ vector<Statement> *Parser::parse() {
             getNextToken();
         }
         getNextToken();
-        programStack->emplace_back(Statement(conditions, instructions));
-        int currentMaxNumStacks = max(conditions.size(), instructions.size());
-        maxNumStacks_ = max(currentMaxNumStacks, maxNumStacks_);
+        if(!emptyStatement) {
+            programStack->emplace_back(Statement(conditions, instructions));
+            int currentMaxNumStacks = max(conditions.size(), instructions.size());
+            maxNumStacks_ = max(currentMaxNumStacks, maxNumStacks_);
+        }
     }
     return programStack;
 }
@@ -59,4 +64,3 @@ void Parser::getNextToken() {
 int Parser::getMaxNumStacks() {
     return maxNumStacks_;
 }
-
