@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Lexer.h"
-#include "AST.h"
+#include "Statement.h"
 #include "Parser.h"
 #include "Interpreter.h"
 
@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
     try {
         Lexer lexer(programText);
         Parser parser(lexer);
-        AstNode *rootNode = parser.parse();
+        vector<Statement> *programStack = parser.parse();
         Interpreter interpreter;
-        cout << "Result: " << interpreter.interpret(rootNode) << endl;
-        delete rootNode;
+        cout << "Result: " << interpreter.interpret(programText) << endl;
+        delete programStack;
     }
     catch (exception &e) {
         cerr << e.what() << endl;

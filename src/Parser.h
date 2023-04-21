@@ -5,18 +5,14 @@
 #include <utility>
 #include "Token.h"
 #include "Lexer.h"
-#include "AST.h"
+#include "Statement.h"
 
 class Parser
 {
 public:
-    explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Invalid) {
-        currentToken_ = Token::Invalid;
-    }
-    AstNode* parse();
+    explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Open) {}
+    vector<Statement>* parse();
 private:
-    AstNode* expr();
-    AstNode* term();
     void getNextToken();
     Lexer &lexer_;
     Token currentToken_;
