@@ -9,7 +9,7 @@ using namespace std;
  *
  */
 struct Stack {
-    vector<bool> stack;
+    vector<bool> data_;
 
     Stack() = default;
 
@@ -18,7 +18,7 @@ struct Stack {
      * @param stack
      */
     explicit Stack(vector<bool> stack) {
-        this->stack = std::move(stack);
+        this->data_ = std::move(stack);
     }
 
     /**
@@ -26,7 +26,7 @@ struct Stack {
      * @return
      */
     [[nodiscard]] int size() const {
-        return int(stack.size());
+        return int(data_.size());
     }
 
     /**
@@ -35,7 +35,7 @@ struct Stack {
      * @return
      */
     bool get(int index) {
-        return stack[index];
+        return data_[index];
     }
 
     /**
@@ -43,7 +43,7 @@ struct Stack {
      * @param value
      */
     void add(bool value) {
-        stack.push_back(value);
+        data_.push_back(value);
     }
 
     /**
@@ -52,14 +52,14 @@ struct Stack {
      * @param to
      */
     void remove(int n) {
-        stack.resize(stack.size() - n);
+        data_.resize(data_.size() - n);
     }
 
     /**
      *
      */
     void clear() {
-        stack.clear();
+        data_.clear();
     }
 
     /**
@@ -76,12 +76,12 @@ struct Stack {
         }
         if (is_binary) {
             for (int i = int(::strlen(input)) - 1; i >= 0; i--) {
-                stack.push_back(input[i] == '0');
+                data_.push_back(input[i] == '0');
             }
         } else {
             for (int i = 0; i < ::strlen(input); i++) {
                 for (int j = 7; j >= 0; j--) {
-                    stack.push_back((input[i] & (1 << j)) == 0);
+                    data_.push_back((input[i] & (1 << j)) == 0);
                 }
             }
         }
@@ -91,10 +91,10 @@ struct Stack {
      *
      */
     void print() {
-        int size = int(stack.size() - (stack.size() % 8));
+        int size = int(data_.size() - (data_.size() % 8));
         for (int i = 0; i < size; i += 8) {
             std::bitset<8> byte;
-            for (int j = 0; j < 8; j++) byte[7 - j] = (!stack[i + j]);
+            for (int j = 0; j < 8; j++) byte[7 - j] = (!data_[i + j]);
             cout << char(byte.to_ulong());
         }
     }
@@ -347,7 +347,7 @@ int main(int argc, char **argv) {
         stacks.resize(total_stacks_count);
     }
     while (stacks.size() < total_stacks_count) stacks.emplace_back();
-    //executes program stack / interpret
+    //executes program data_ / interpret
     bool stackChanged;
     do {
         stackChanged = false;
