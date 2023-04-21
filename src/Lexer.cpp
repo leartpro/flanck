@@ -28,4 +28,5 @@ Token Lexer::getNextToken() {
                 continue;
         }
     }
+    return Token::Eof;
 }

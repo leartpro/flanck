@@ -16,5 +16,6 @@ private:
     void getNextToken();
     Lexer &lexer_;
     Token currentToken_;
+    int maxNumStacks_;
 };
 #endif //PLANCK_PARSER_H

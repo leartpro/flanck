@@ -6,6 +6,7 @@ enum Token {
     Close,
     Zero,
     One,
-    Divider
+    Divider,
+    Eof
 };
 #endif //PLANCK_TOKEN_H
