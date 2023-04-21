@@ -94,7 +94,7 @@ struct Stack {
         int size = int(stack.size() - (stack.size() % 8));
         for (int i = 0; i < size; i += 8) {
             std::bitset<8> byte;
-            for (int j = 0; j < 8; j++) byte[j] = (!stack[i + j]);
+            for (int j = 0; j < 8; j++) byte[7 - j] = (!stack[i + j]);
             cout << char(byte.to_ulong());
         }
     }
@@ -143,9 +143,9 @@ private:
     bool executeInstructions(vector<Stack> &stacks) {
         bool stackChanged = false;
         for (int stack_index = 0; stack_index < instructions.size(); stack_index++) {
-            for (int stack_position = int(instructions[stack_index].size());
-                 stack_position > 0; stack_position--) {
-                stacks[stack_index].add(instructions[stack_index].get(stack_position - 1));
+            int size = int(instructions[stack_index].size());
+            for (int stack_position = 0; stack_position < size; stack_position++) {
+                stacks[stack_index].add(instructions[stack_index].get(stack_position));
                 stackChanged = true;
             }
         }
