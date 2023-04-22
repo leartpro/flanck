@@ -4,7 +4,7 @@ project(flanck)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
-        flanck src/flanck.cpp
+        flanck
         src/main.cpp
         src/Token.h
         src/Stack.h
