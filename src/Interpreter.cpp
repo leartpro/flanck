@@ -21,14 +21,14 @@ void Interpreter::start() {
             stackChanged = true;
             for (int i = 0; i < statement.conditions.size(); i++) {
                 stacks_[i].remove(statement.conditions[i]);
-                if (!stacks_[i].isEmpty() && notificationMap_[i] == _InternNotificationChange::change_) {
+                if (!stacks_[i].isEmpty() && notificationMap_[i] == _InternNotificationChangeType::change_) {
                     newNotification = true;
                     change_.changeMap[i] = true;
                 }
             }
             for (int i = 0; i < statement.instructions.size(); i++) {
                 stacks_[i].push(statement.instructions[i]);
-                if (!stacks_[i].isEmpty() && notificationMap_[i] == _InternNotificationChange::newBytesChange_) {
+                if (!stacks_[i].isEmpty() && notificationMap_[i] == _InternNotificationChangeType::newBytesChange_) {
                     auto &addedChangeMap = change_.byteAddChangeMap[i];
                     addedChangeMap.push(statement.instructions[i]);
                     if(addedChangeMap.moreThanAByteLength()) {

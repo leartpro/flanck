@@ -8,12 +8,12 @@
 #include "Statement.h"
 #include "Parser.h"
 
-enum NotificationChange {
+enum NotificationChangeType {
     onAllChanges,
     onNewByteChange,
 };
 
-enum _InternNotificationChange {
+enum _InternNotificationChangeType {
     none_ = 0,
     change_ = 1,
     newBytesChange_ = 2,
@@ -29,7 +29,7 @@ struct InterpreterOptions {
                        int writeNotificationCount,
                        int minStackLength,
                        unordered_map<int, StackConstraint> &constraints,
-                       unordered_map<int, NotificationChange> &notifications) :
+                       unordered_map<int, NotificationChangeType> &notifications) :
             readCount(readCount), endCount(endCount), writeNotificationCount(writeNotificationCount),
             minStackLength(minStackLength), constraints(constraints),
             notifications(notifications) {}
@@ -39,7 +39,7 @@ struct InterpreterOptions {
     const int endCount;
     const int minStackLength;
     const unordered_map<int, StackConstraint> constraints;
-    const unordered_map<int, NotificationChange> notifications;
+    const unordered_map<int, NotificationChangeType> notifications;
 
 };
 
@@ -74,20 +74,20 @@ public:
         int stackLength = getStackLength();
         change_.changeMap = vector<bool>(stackLength);
         change_.byteAddChangeMap = vector<Stack>(stackLength, Stack(vector<bool>()));
-        notificationMap_ = new _InternNotificationChange[stackLength];
+        notificationMap_ = new _InternNotificationChangeType[stackLength];
         // TODO: funktioniert???
         for (auto [stackIndex, notificationChangeType]: options_.notifications) {
             notificationMap_[stackIndex] = _notificationChangeToIntern(notificationChangeType);
         }
     };
 
-    _InternNotificationChange _notificationChangeToIntern(NotificationChange notificationChange) {
-        if(notificationChange == NotificationChange::onAllChanges) {
-            return _InternNotificationChange::change_;
+    _InternNotificationChangeType _notificationChangeToIntern(NotificationChangeType notificationChange) {
+        if(notificationChange == NotificationChangeType::onAllChanges) {
+            return _InternNotificationChangeType::change_;
         } else {
-            return _InternNotificationChange::newBytesChange_;
+            return _InternNotificationChangeType::newBytesChange_;
         }
-        return _InternNotificationChange::none_;
+        return _InternNotificationChangeType::none_;
     }
 
     int getStackLength() {
@@ -123,7 +123,7 @@ private:
     int countTillEnd_;
     int countTillWriteNotification_;
     bool forceEnd_;
-    _InternNotificationChange* notificationMap_;
+    _InternNotificationChangeType* notificationMap_;
 };
 
 
