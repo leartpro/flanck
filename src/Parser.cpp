@@ -1,8 +1,8 @@
 #include "Parser.h"
 #include "Stack.h"
 
-vector<Statement> *Parser::parse() {
-    vector<Statement>* programStack;
+void Parser::parse() {
+    statements_->clear();
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;
         bool hasDivider = false;
@@ -49,12 +49,11 @@ vector<Statement> *Parser::parse() {
         }
         getNextToken();
         if(!emptyStatement) {
-            programStack->emplace_back(Statement(conditions, instructions));
+            statements_.emplace_back(conditions, instructions);
             int currentMaxNumStacks = max(conditions.size(), instructions.size());
             maxNumStacks_ = max(currentMaxNumStacks, maxNumStacks_);
         }
     }
-    return programStack;
 }
 
 void Parser::getNextToken() {
@@ -63,4 +62,8 @@ void Parser::getNextToken() {
 
 int Parser::getMaxNumStacks() {
     return maxNumStacks_;
+}
+
+vector<Statement> Parser::getStatements() {
+    return statements_;
 }

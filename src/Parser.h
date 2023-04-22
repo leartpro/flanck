@@ -11,9 +11,11 @@ class Parser
 {
 public:
     explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Open) {}
-    vector<Statement>* parse();
+    void parse();
     int getMaxNumStacks();
+    vector<Statement> getStatements();
 private:
+    vector<Statement> statements_;
     void getNextToken();
     Lexer &lexer_;
     Token currentToken_;

@@ -12,6 +12,10 @@ struct Stack {
         this->data_ = std::move(stack);
     }
 
+    explicit Stack() {
+        this->data_ = vector<bool>();
+    }
+
     vector<bool> data_;
 public:
     static Stack fromString(const string& s) {
@@ -32,8 +36,12 @@ public:
         return Stack(data);
     }
 
-    static Stack empty() {
-        return Stack(vector<bool>());
+    void clear() {
+        data_.clear();
+    }
+
+    bool moreThanAByteLength() {
+        return data_.size() >= 8;
     }
 
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
