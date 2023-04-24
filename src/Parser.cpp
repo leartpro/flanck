@@ -2,7 +2,6 @@
 #include "Stack.h"
 
 void Parser::parse() {
-    statements_.clear();
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;
         bool hasDivider = false;

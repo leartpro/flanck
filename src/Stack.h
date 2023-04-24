@@ -19,6 +19,7 @@ struct Stack {
     vector<bool> data_;
 public:
     static Stack fromString(const string& s) {
+        if(std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
         for (char i : s) {
             for (int j = 7; j >= 0; j--) {
@@ -29,6 +30,7 @@ public:
     }
 
     static Stack fromBinaryString(string s) {
+        if(std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
         for (int i = int(s.length()) - 1; i >= 0; i--) {
             data.push_back(s[i] == '1');
@@ -67,7 +69,7 @@ public:
         int size = int(data_.size() - (data_.size() % 8));
         for (int i = 0; i < size; i += 8) {
             std::bitset<8> byte;
-            for (int j = 0; j < 8; j++) byte[7 - j] = (!data_[i + j]);
+            for (int j = 0; j < 8; j++) byte[7 - j] = (data_[i + j]);
             result += char(byte.to_ulong());
         }
         return result;

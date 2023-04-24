@@ -55,7 +55,6 @@ int main(int argc, char *argv[]) {
     try {
         Lexer lexer(programText);
         Parser parser(lexer);
-        parser.parse();
         Interpreter interpreter(parser, stacks);
         interpreter.interpret();
         cout << interpreter.getOutputStack().toBinaryString() << endl;
