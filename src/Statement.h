@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Token.h"
+#include <utility>
 #include <vector>
 #include "Stack.h"
 
@@ -10,8 +11,8 @@ using namespace std;
 
 struct Statement {
     explicit Statement(vector<Stack> conditions, vector<Stack> instructions) {
-        this->conditions = conditions;
-        this->instructions = instructions;
+        this->conditions = std::move(conditions);
+        this->instructions = std::move(instructions);
     }
     vector<Stack> conditions, instructions;
 };

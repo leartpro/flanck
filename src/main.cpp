@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include "Lexer.h"
-#include "Statement.h"
 #include "Parser.h"
 #include "Interpreter.h"
 #include "Stack.h"
@@ -33,22 +32,31 @@ int main(int argc, char *argv[]) {
     }
     programText[index] = '\0';
 
-    bool asBinary;
+    bool inputAsBinary = true;
+    bool outputAsBinary = true;
     int inputPos = 2;
-    if(argv[2][0] == '-' && argv[2][1] == 'a') {
-        asBinary = false;
-        inputPos = 3;
-    } else if(argv[2][0] == '-' && argv[2][1] == 'b') {
-        asBinary = true;
-        inputPos = 3;
+    if (argv[2][0] == '-' && argv[2][1] == 'a') {
+        inputAsBinary = false;
+        inputPos++;
+    } else if (argv[2][0] == '-' && argv[2][1] == 'b') {
+        inputAsBinary = true;
+        inputPos++;
+    }
+
+    if (argv[3][0] == '-' && argv[3][1] == 'a') {
+        outputAsBinary = false;
+        inputPos++;
+    } else if (argv[3][0] == '-' && argv[3][1] == 'b') {
+        outputAsBinary = true;
+        inputPos++;
     }
 
     vector<Stack> stacks;
     stacks.reserve(argc - 2);
     for (int pos = inputPos; pos < argc; pos++) {
-        Stack stack = asBinary ?
-                Stack::fromBinaryString(argv[pos]) :
-                Stack::fromString(argv[pos]);
+        Stack stack = inputAsBinary ?
+                      Stack::fromBinaryString(argv[pos]) :
+                      Stack::fromString(argv[pos]);
         stacks.push_back(stack);
     }
 
@@ -57,8 +65,11 @@ int main(int argc, char *argv[]) {
         Parser parser(lexer);
         Interpreter interpreter(parser, stacks);
         interpreter.interpret();
-        cout << interpreter.getOutputStack().toBinaryString() << endl;
-        cout << interpreter.getOutputStack().toString();
+        cout << (
+                outputAsBinary ?
+                interpreter.getOutputStack().toBinaryString() :
+                interpreter.getOutputStack().toString()
+        );
     }
     catch (exception &e) {
         cerr << e.what() << endl;
