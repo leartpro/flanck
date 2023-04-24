@@ -7,16 +7,42 @@
 #include "Lexer.h"
 #include "Statement.h"
 
+/**
+ *
+ */
 class Parser
 {
 public:
+
+    /**
+     *
+     * @param lexer
+     */
     explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Open) {
         this->maxNumStacks_ = 0;
     }
+
+    /**
+     *
+     */
     void parse();
-    [[nodiscard]] int getMaxNumStacks() const;
+
+    /**
+     *
+     * @return
+     */
+    int getMaxNumStacks() const;
+
+    /**
+     *
+     * @return
+     */
     vector<Statement> getStatements();
 private:
+
+    /**
+     *
+     */
     void getNextToken();
     vector<Statement> statements_;
     Lexer &lexer_;

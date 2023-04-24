@@ -1,6 +1,9 @@
 #include "Parser.h"
 #include "Stack.h"
 
+/**
+ *
+ */
 void Parser::parse() {
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;
@@ -55,14 +58,25 @@ void Parser::parse() {
     }
 }
 
+/**
+ *
+ */
 void Parser::getNextToken() {
     currentToken_ = lexer_.getNextToken();
 }
 
+/**
+ *
+ * @return
+ */
 int Parser::getMaxNumStacks() const {
     return maxNumStacks_;
 }
 
+/**
+ *
+ * @return
+ */
 vector<Statement> Parser::getStatements() {
     return statements_;
 }

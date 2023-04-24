@@ -7,17 +7,32 @@
 
 using namespace std;
 
+/**
+ *
+ */
 struct Stack {
+    vector<bool> data_;
+
+    /**
+     *
+     * @param stack
+     */
     explicit Stack(vector<bool> stack) {
         this->data_ = std::move(stack);
     }
 
+    /**
+     *
+     */
     explicit Stack() {
         this->data_ = vector<bool>();
     }
 
-    vector<bool> data_;
-public:
+    /**
+     *
+     * @param s
+     * @return
+     */
     static Stack fromString(const string& s) {
         if(std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
@@ -29,6 +44,11 @@ public:
         return Stack(data);
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     static Stack fromBinaryString(string s) {
         if(std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
@@ -38,6 +58,11 @@ public:
         return Stack(data);
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
         if (other.data_.empty() && data_.empty()) {
             return true;
@@ -48,14 +73,26 @@ public:
         return std::equal(data_.end() - int(other.data_.size()), data_.end(), other.data_.end());
     }
 
+    /**
+     *
+     * @param other
+     */
     __attribute__((always_inline)) inline void push(Stack other) {
         data_.insert(data_.end(), other.data_.begin(), other.data_.end());
     }
 
+    /**
+     *
+     * @param howMuch
+     */
     __attribute__((always_inline)) inline void remove(const Stack &howMuch) {
         data_.resize(data_.size() - howMuch.data_.size());
     }
 
+    /**
+     *
+     * @return
+     */
     string toBinaryString() {
         string result;
         for (auto i = 0; i < data_.size(); i += 1) {
@@ -64,6 +101,10 @@ public:
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     string toString() {
         string result;
         int size = int(data_.size() - (data_.size() % 8));

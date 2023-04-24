@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/**
+ *
+ * @return
+ */
 Token Lexer::getNextToken() {
     while (position_ < input_.size()) {
         switch (input_[position_]) {

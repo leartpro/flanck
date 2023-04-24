@@ -1,5 +1,8 @@
 #include "Interpreter.h"
 
+/**
+ *
+ */
 void Interpreter::interpret() {
     parser_.parse();
     vector<Statement> statements = parser_.getStatements();
@@ -25,6 +28,10 @@ void Interpreter::interpret() {
     } while (stackChanged);
 }
 
+/**
+ *
+ * @return
+ */
 Stack Interpreter::getOutputStack() {
     return stacks_[0];
 }

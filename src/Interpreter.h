@@ -8,11 +8,29 @@
 #include "Statement.h"
 #include "Parser.h"
 
+/**
+ *
+ */
 class Interpreter
 {
 public:
+
+    /**
+     *
+     * @param parser
+     * @param stacks
+     */
     explicit Interpreter(Parser& parser, vector<Stack>& stacks) : parser_(parser), stacks_(std::move(stacks)) {};
+
+    /**
+     *
+     */
     void interpret();
+
+    /**
+     *
+     * @return
+     */
     Stack getOutputStack();
 private:
     Parser &parser_;

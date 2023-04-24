@@ -7,6 +7,12 @@
 
 using namespace std;
 
+/**
+ *
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char *argv[]) {
 
     //validate size of arguments

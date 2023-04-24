@@ -8,8 +8,15 @@
 #include "Stack.h"
 
 using namespace std;
-
+/**
+ *
+ */
 struct Statement {
+    /**
+     *
+     * @param conditions
+     * @param instructions
+     */
     explicit Statement(vector<Stack> conditions, vector<Stack> instructions) {
         this->conditions = std::move(conditions);
         this->instructions = std::move(instructions);
