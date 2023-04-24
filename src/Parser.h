@@ -10,13 +10,15 @@
 class Parser
 {
 public:
-    explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Open) {}
+    explicit Parser(Lexer& lexer) : lexer_(lexer), currentToken_(Token::Open) {
+        this->maxNumStacks_ = 0;
+    }
     void parse();
-    int getMaxNumStacks();
+    [[nodiscard]] int getMaxNumStacks() const;
     vector<Statement> getStatements();
 private:
-    vector<Statement> statements_;
     void getNextToken();
+    vector<Statement> statements_;
     Lexer &lexer_;
     Token currentToken_;
     int maxNumStacks_;

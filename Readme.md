@@ -15,26 +15,29 @@ von einem Keller gelesen werden können, als auch hinzugefügt werden können.
 
 Um eine ``.flanck`` Datei auszuführen muss der Pfad zur Datei angegeben werden.
 Optional kann ein Input angegeben werden.
+Ob der Input als Binär oder als Ascii interpretiert wird, kann durch eine Flag angegeben werden.
 Dabei kann der Input für jeden Keller separat angegeben werden.
 Ein beispielhafter Aufruf in der Konsole könnte sein:
 ```sh
-    $ flanck helloWorld.flanck 0
+    $ flanck helloWorld.flanck
 ```
 Hier liegt die Zieldatei bereits im gleichen Verzeichnis 
-und bekommt ``0`` als zusätzlichen Parameter.
+und bekommt keine zusätzlichen Parameter.
 
 Ein weiter Aufruf könnte wie folgt aussehen:
 ```sh
-    $ flanck example.flanck 0 10010 1111
+    $ flanck example.flanck -b 0 10010 1111
 ```
 Hier wird auf die ersten drei Stapel gelegt.
+Durch die Flag `-b` wird der Input als Binär gelesen.
+Hier ist die Flag optional, da die Eingabe standardmäßig als Binär interpretiert wird.
 
 Wenn Text als Input gegeben wird, wird dieser zu Binär umgewandelt.
 ```sh
-    $ flanck example.flanck Hello World! 0
+    $ flanck example.flanck -a Hello World!
 ```
-Hier wird auf die ersten drei Stapel gelegt, wobei `Hello` und `World!` zu Binär interpretiert werden.
-Die `0` aber wird als Binär (`0`) und nicht als Ascii (`00110000`) auf den Keller gelegt.
+Hier wird auf die ersten beiden Stapel gelegt, wobei `Hello` und `World!` als Ascii interpretiert werden.
+Der erste Stapel
 
 *Es ist zu beachten, dass der binäre Input von rechts nach links auf den Keller gelegt wird.
 Beispielsweise entspricht `01100001` der Eingabe `a`.*

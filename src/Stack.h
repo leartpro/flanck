@@ -36,14 +36,6 @@ public:
         return Stack(data);
     }
 
-    void clear() {
-        data_.clear();
-    }
-
-    bool moreThanAByteLength() {
-        return data_.size() >= 8;
-    }
-
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
         if (other.data_.empty() && data_.empty()) {
             return true;
@@ -60,10 +52,6 @@ public:
 
     __attribute__((always_inline)) inline void remove(const Stack &howMuch) {
         data_.resize(data_.size() - howMuch.data_.size());
-    }
-
-    [[nodiscard]] __attribute__((always_inline)) inline bool isEmpty() const {
-        return data_.empty();
     }
 
     string toBinaryString() {
