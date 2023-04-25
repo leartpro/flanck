@@ -64,13 +64,17 @@ struct Stack {
      * @return
      */
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
-        if (other.data_.empty() && data_.empty()) {
+        //TODO: evaluates false for the following two cases:
+        // (true, false) == (true, false)
+        // (false, true) == (true, false)
+        // one of this cases should return true
+        if (other.isEmpty() && this->isEmpty()) {
             return true;
         }
-        if (other.data_.size() > data_.size()) {
+        if (other.height() > this->height()) {
             return false;
         }
-        return std::equal(data_.end() - int(other.data_.size()), data_.end(), other.data_.end());
+        return std::equal(this->end() - other.height(), this->end(), other.end());
     }
 
     /**
@@ -114,6 +118,27 @@ struct Stack {
             result += char(byte.to_ulong());
         }
         return result;
+    }
+
+    /**
+     *
+     * @return
+     */
+    __attribute__((always_inline)) inline bool isEmpty() const {
+        return data_.empty();
+    }
+
+    /**
+     *
+     * @return
+     */
+    __attribute__((always_inline)) inline int height() const {
+        return int(data_.size());
+    }
+
+
+    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool>>, false> end() {
+        return data_.end();
     }
 };
 

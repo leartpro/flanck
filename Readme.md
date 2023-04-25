@@ -14,7 +14,7 @@ von einem Keller gelesen werden können, als auch hinzugefügt werden können.
 ## USAGE
 
 Um eine ``.flanck`` Datei auszuführen muss der Pfad zur Datei angegeben werden.
-Optional kann ein Input angegeben werden.
+Optional kann zusätzlich ein Input angegeben werden.
 Ob der Input als Binär oder als Ascii interpretiert wird, kann durch eine Flag angegeben werden.
 Dabei kann der Input für jeden Keller separat angegeben werden.
 Ein beispielhafter Aufruf in der Konsole könnte sein:
@@ -37,42 +37,45 @@ Wenn Text als Input gegeben wird, wird dieser zu Binär umgewandelt.
     $ flanck example.flanck -a Hello World!
 ```
 Hier wird auf die ersten beiden Stapel gelegt, wobei `Hello` und `World!` als Ascii interpretiert werden.
-Der erste Stapel
+Der erste Stapel würde daher das binäre Äquivalent von `Hello` enthalten (`0100100001100101011011000110110001101111`).
 
-*Es ist zu beachten, dass der binäre Input von rechts nach links auf den Keller gelegt wird.
-Beispielsweise entspricht `01100001` der Eingabe `a`.*
+Durch eine zweite Flag kann die Ausgabe spezifiziert werden.
+So wird im Folgenden der ascii Input als Binär ausgegeben.
+```sh
+    $ flanck example.flanck -a -b Hello World!
+```
+
+| flag | name   | usage                                |
+|------|--------|--------------------------------------|
+| -a   | ascii  | interprets/print as ascii            |
+| -b   | binary | interprets/print as binary (default) |
 
 ## SYNTAX
 
-# TO-DO: der erste Keller soll als Ausgabe dienen, nicht der zweite
-# TO-DO: es soll auch möglich sein, in der Eingabe Keller zu überspringen
-# TO-DO: mit '<' zu Begin der Zeile soll, bei erfüllter Bedingung, der Ausgabekeller direkt ausgegeben werden und nicht erst am Ende des Programms (nicht geleert)
-# TO-DO: mit > zu Begin der Zeile wird so lange auf eine Benutzereingabe gewartet, bis die Bedingung des Statements akzeptiert ist; auch falsche Eingaben werden gespeichert
-
-1. Es kann so viele Keller geben wie man möchte
-2. Pro Zeile darf es nur ein Statement geben
-3. Jedes Statement setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Anweisungen zusammen.
-4. Es müssen keine Bedingungen oder Anweisungen in einem Statement vorkommen.
-5. Mit `#` kann ein Zeilenkommentar gestartet werden, alles danach wird bis zum Ende der Zeile ignoriert.
-6. Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gibt die Bedingung als nicht erfüllt.
-7. Ein Keller wird mit `[` angefangen und mit `]` beendet.
-8. Die Statements werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
-9. Die Keller verwalten als Symbole nur `0` und `1`.
-10. Der Inhalt des zweiten Stapels wird am Ende des Programms als Ascii UTF-8 interpretiert und ausgegeben, dabei wird unten im Stapel angefangen.
-11. Die Statements werden von oben nach unten abgearbeitet.
-12. Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text als Binär Interpretiert
-13. Der Ausgabekeller wird am Ende des Programms ausgegeben
+Der erste Keller dient zur Ausgabe.
+Pro Zeile darf es nur eine Anweisung geben.
+Es kann so viele Keller geben wie man möchte
+Pro Zeile darf es nur eine Anweisung geben.
+Jede Anweisung setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Instruktionen zusammen.
+Es müssen keine Bedingungen oder Instruktionen in einem Statement vorkommen.
+Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
+Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gilt die Bedingung als nicht erfüllt.
+Ein Keller wird mit `[` angefangen und mit `]` beendet.
+Die Anweisungen werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
+Die Keller verwalten als Symbole nur `0` und `1`.
+Die Anweisungen werden von oben nach unten abgearbeitet.
+Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text zu Binär umgewandelt.
 
 ## EXAMPLES
 
 Dieses beispiel zeigt ...
 ```shell
-    [0]:[0][0]
-    [0]:[01][1]
-    [01]:[011][0]
-    [011]:[0111][0]
-    [0111]:[0][1]
-    [0]:[0][0]
-    [0]:[0][0]
-    [0]:[1][0]
+    [][0]:[0][0]
+    [][0]:[1][01]
+    [][01]:[0][011]
+    [][011]:[0][0111]
+    [][0111]:[1][0]
+    [][0]:[0][0]
+    [][0]:[0][0]
+    [][0]:[0][1]
 ```
