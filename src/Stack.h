@@ -64,10 +64,6 @@ struct Stack {
      * @return
      */
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
-        //TODO: evaluates false for the following two cases:
-        // (true, false) == (true, false)
-        // (false, true) == (true, false)
-        // one of this cases should return true
         if (other.isEmpty() && this->isEmpty()) {
             return true;
         }
