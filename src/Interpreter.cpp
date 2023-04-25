@@ -15,8 +15,6 @@ void Interpreter::interpret() {
                 if(statement.conditions[i].isEmpty()) {
                     continue;
                 }
-                //TODO: unwanted behavior in third statement of test.flanck
-                // the second conditions evaluates as false but should be true (right?)
                 if (!stacks_[i].endsWith(statement.conditions[i])) {
                     goto next_statement;
                 }
