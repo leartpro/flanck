@@ -50,6 +50,12 @@ So wird im Folgenden der ascii Input als Binär ausgegeben.
 | -a   | ascii  | interprets/print as ascii            |
 | -b   | binary | interprets/print as binary (default) |
 
+Um einen Keller zu überspringen, kann `_` verwendet werden.
+```sh
+    $ flanck example.flanck -a -b _ Hello World!
+```
+Hier wird nur auf den zweiten und dritten Keller gelegt.
+
 ## SYNTAX
 
 Der erste Keller dient zur Ausgabe.
@@ -68,14 +74,20 @@ Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Tex
 
 ## EXAMPLES
 
-Dieses beispiel zeigt ...
 ```shell
     [][0]:[0][0]
-    [][0]:[1][01]
-    [][01]:[0][011]
-    [][011]:[0][0111]
-    [][0111]:[1][0]
-    [][0]:[0][0]
-    [][0]:[0][0]
+    [][0]:[1][10]
+    [][10]:[0][110]
+    [][110]:[0][1110]
+    [][1110]:[1][110]
+    [][110]:[0][10]
+    [][10]:[0][0]
     [][0]:[0][1]
+```
+
+Dieses Beispiel zeigt, wie der Buchstabe `H` bitweise aufgebaut wird.
+Da die Bedingung in der ersten Anweisung nur erfüllt ist, wenn eine `0` auf dem zweiten Stapel liegt
+und eine Ausgabe in Ascii gewünscht ist, eignet sich der folgende Aufruf:
+```sh
+    $ flanck example.flanck -b -a _ 0
 ```

@@ -33,10 +33,10 @@ struct Stack {
      * @param s
      * @return
      */
-    static Stack fromString(const string& s) {
-        if(std::equal(s.begin(), s.end(), "_")) return Stack();
+    static Stack fromString(const string &s) {
+        if (std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
-        for (char i : s) {
+        for (char i: s) {
             for (int j = 7; j >= 0; j--) {
                 data.push_back((i & (1 << j)) == 0);
             }
@@ -50,7 +50,7 @@ struct Stack {
      * @return
      */
     static Stack fromBinaryString(string s) {
-        if(std::equal(s.begin(), s.end(), "_")) return Stack();
+        if (std::equal(s.begin(), s.end(), "_")) return Stack();
         vector<bool> data;
         for (int i = int(s.length()) - 1; i >= 0; i--) {
             data.push_back(s[i] == '1');
@@ -74,7 +74,10 @@ struct Stack {
         if (other.height() > this->height()) {
             return false;
         }
-        return std::equal(this->end() - other.height(), this->end(), other.end());
+        const auto a = this->end() - other.height();
+        const auto b = this->end() - other.height();
+
+        return std::equal(this->begin(), this->begin() + other.height(), other.begin());
     }
 
     /**
@@ -136,10 +139,18 @@ struct Stack {
         return int(data_.size());
     }
 
-
+    /**
+     *
+     * @return
+     */
     __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool>>, false> end() {
         return data_.end();
     }
+
+    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool>>, false> begin() {
+        return data_.begin();
+    }
+
 };
 
 #endif //FLANCK_STACK_H
