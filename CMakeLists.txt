@@ -22,7 +22,7 @@ install(
 
 # Install flanck header files
 install(
-        DIRECTORY include/
-        DESTINATION include/flanck
+        DIRECTORY src/
+        DESTINATION src/
         FILES_MATCHING PATTERN "*.h"
 )
