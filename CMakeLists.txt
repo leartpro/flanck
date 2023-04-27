@@ -19,3 +19,10 @@ install(
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
 )
+
+# Install flanck header files
+install(
+        DIRECTORY include/
+        DESTINATION include/flanck
+        FILES_MATCHING PATTERN "*.h"
+)
