@@ -19,6 +19,10 @@ Des Weiteren wird die Wrapperklasse Stack exportiert.
         )
     ```
    flanck does not need further includes
+4. to use flanck in your code:
+   ```c++
+      #include "flanck/flanck.h"
+   ```
 
 
 
