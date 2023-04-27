@@ -8,7 +8,7 @@
     add_library(
             flanck
             src/Stack.h
-            src/Lexer.cpp src/Lexer.h
-            src/Parser.cpp src/Parser.h
-            src/Interpreter.cpp src/Interpreter.h
+            src/Lexer.h
+            src/Parser.h
+            src/Interpreter.h
     )
