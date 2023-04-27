@@ -1,5 +1,5 @@
-#include "../include/Parser.h"
-#include "Stack.h"
+#include "flanck/Parser.h"
+#include "flanck/Stack.h"
 
 /**
  *
