@@ -79,7 +79,9 @@ public:
         int size = int(data_.size() - (data_.size() % 8));
         for (int i = 0; i < size; i += 8) {
             std::bitset<8> byte;
-            for (int j = 0; j < 8; j++) byte[7 - j] = (!data_[i + j]);
+            for (int j = 0; j < 8; j++) {
+                byte[7 - j] = (data_[i + j]);
+            }
             result += char(byte.to_ulong());
         }
         return result;

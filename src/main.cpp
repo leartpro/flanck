@@ -1,16 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include "Lexer.h"
-#include "Statement.h"
 #include "Parser.h"
 #include "Interpreter.h"
 
 using namespace std;
 
+
 int main(int argc, char *argv[]) {
 
     //validate size of arguments
-    if (argc < 2) {
+    if (argc < 3) {
         cerr << "Unexpected arguments " << endl;
         return 1;
     }
@@ -35,10 +35,15 @@ int main(int argc, char *argv[]) {
     try {
         Lexer lexer(programText);
         Parser parser(lexer);
-        vector<Statement> *programStack = parser.parse();
-        Interpreter interpreter;
-        interpreter.interpret(programStack);
-        delete programStack;
+        parser.parse();
+        CMDInterpreterObserver observer = CMDInterpreterObserver();
+        unordered_map<int, StackConstraint> constraints = {};
+        unordered_map<int, NotificationChangeType> notifications = {};
+        InterpreterOptions options(10, 100000, 10, 2, constraints, notifications);
+        Interpreter interpreter(parser, observer, options);
+        interpreter.pushStack(0,Stack::fromBinaryString("0"));
+        interpreter.start();
+        cout << interpreter.getStack(1).toString();
     }
     catch (exception &e) {
         cerr << e.what() << endl;

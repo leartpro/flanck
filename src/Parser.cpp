@@ -2,7 +2,7 @@
 #include "Stack.h"
 
 void Parser::parse() {
-    statements_->clear();
+    statements_.clear();
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;
         bool hasDivider = false;
@@ -10,7 +10,7 @@ void Parser::parse() {
         vector<Stack> conditions;
         vector<Stack> instructions;
         vector<bool> currentStack;
-        while (currentToken_ != Token::Eol) {
+        while (currentToken_ != Token::Eol && currentToken_ != Token::Eof) {
             switch (currentToken_) {
                 case Token::Open:
                     if(valueExpected) break;
