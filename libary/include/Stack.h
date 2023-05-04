@@ -139,11 +139,11 @@ struct Stack {
      *
      * @return
      */
-    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool>>, false> end() {
+    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool> >, false> end() {
         return data_.end();
     }
 
-    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool>>, false> begin() {
+    __attribute__((always_inline)) inline __bit_iterator<std::vector<bool, std::allocator<bool> >, false> begin() {
         return data_.begin();
     }
 

@@ -1,4 +1,4 @@
-#include "flanck/Lexer.h"
+#include "Lexer.h"
 
 using namespace std;
 

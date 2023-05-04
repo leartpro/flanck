@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "../libary/include/flanck/flanck.h"
+#include "flanck.h"
 
 using namespace std;
 

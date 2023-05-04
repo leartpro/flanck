@@ -14,7 +14,7 @@ add_library(
         src/Lexer.cpp
         src/Parser.cpp
         src/Interpreter.cpp
-        include/flanck/flanck.h
+        include/flanck.h
 )
 
 target_include_directories(
