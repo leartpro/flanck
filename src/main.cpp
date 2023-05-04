@@ -38,10 +38,10 @@ int main(int argc, char *argv[]) {
         parser.parse();
         CMDInterpreterObserver observer = CMDInterpreterObserver();
         unordered_map<int, StackConstraint> constraints = {};
-        unordered_map<int, NotificationChangeType> notifications = {};
+        unordered_map<int, NotificationChangeType> notifications = {{1, NotificationChangeType::onNewByteChange}};
         InterpreterOptions options(10, 100000, 10, 2, constraints, notifications);
         Interpreter interpreter(parser, observer, options);
-        interpreter.pushStack(0,Stack::fromBinaryString("0"));
+        //interpreter.pushStack(0, Stack::fromBinaryString("0"));
         interpreter.start();
         cout << interpreter.getStack(1).toString();
     }

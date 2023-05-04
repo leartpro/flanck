@@ -22,7 +22,8 @@ public:
         vector<bool> data;
         for (char i : s) {
             for (int j = 7; j >= 0; j--) {
-                data.push_back((i & (1 << j)) == 0);
+                auto val = (i & (1 << j)) != 0;
+                data.push_back(val);
             }
         }
         return Stack(data);
@@ -51,7 +52,7 @@ public:
         if (other.data_.size() > data_.size()) {
             return false;
         }
-        return std::equal(data_.end() - int(other.data_.size()), data_.end(), other.data_.end());
+        return std::equal(data_.end() - int(other.data_.size()), data_.end(), other.data_.begin());
     }
 
     __attribute__((always_inline)) inline void push(Stack other) {

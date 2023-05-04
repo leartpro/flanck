@@ -80,7 +80,9 @@ public:
         change_.byteAddChangeMap = vector<Stack>(stackLength, Stack(vector<bool>()));
         notificationMap_ = new InternNotificationChangeType_[stackLength];
         stacks_.resize(stackLength);
-        // TODO: funktioniert???
+        for(int i = 0; i < stackLength; i++) {
+            notificationMap_[i] = InternNotificationChangeType_::none_;
+        }
         for (auto [stackIndex, notificationChangeType]: options_.notifications) {
             notificationMap_[stackIndex] = _notificationChangeToIntern(notificationChangeType);
         }
@@ -123,7 +125,11 @@ public:
     }
 
     void pushStack(int i, Stack s) {
-        return stacks_[i].push(s);
+        stacks_[i].push(std::move(s));
+    }
+
+    void replaceStack(int i, Stack s) {
+        stacks_[i] = std::move(s);
     }
 
 private:
@@ -142,7 +148,14 @@ private:
 class CMDInterpreterObserver : public virtual InterpreterObserver {
 public:
 
-    void inputAsk(Interpreter *interpreter) override {}
+    void inputAsk(Interpreter *interpreter) override {
+        string c;
+        cin >> c;
+        auto stack = interpreter->getStack(0);
+        auto newStack = Stack::fromString(c);
+        newStack.push(stack);
+        interpreter->replaceStack(0, newStack);
+    }
 
     void change(Interpreter *interpreter) override {
         if(interpreter->getStackChange().changeMap[1]) {

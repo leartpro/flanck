@@ -32,8 +32,8 @@ void Interpreter::start() {
                     auto &addedChangeMap = change_.byteAddChangeMap[i];
                     addedChangeMap.push(statement.instructions[i]);
                     if(addedChangeMap.moreThanAByteLength()) {
-                        change_.changeMap[i] = true;
                         newNotification = true;
+                        change_.changeMap[i] = true;
                     }
                 }
             }
