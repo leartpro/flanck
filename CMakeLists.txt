@@ -1,17 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
-project(flanck)
-set(CMAKE_CXX_STANDARD 11)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+project(FLANCK VERSION 1.0)
 
-add_library(
-        flanck SHARED
-        src/Lexer.cpp
-        src/Parser.cpp
-        src/Interpreter.cpp
-        include/flanck/flanck.h
-)
+add_subdirectory(libary)
 
-target_include_directories(
-        flanck PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+add_subdirectory(demo)

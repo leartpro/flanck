@@ -1,7 +1,5 @@
 # FLANCK SIMPLE LIBRARY
 
-
-
 ## CONFIGURATION
 
 1. create a folder called `libs` in your project root
