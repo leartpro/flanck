@@ -1,3 +1,3 @@
 #!/bin/bash
-g++ -std=c++17 main.cpp -o flanck
+g++ -llibary -v -Wall -std=c++17 -o flanck main.cpp
 flanck ./helloWorld.flanck -b -a _ 0

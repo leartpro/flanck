@@ -1,16 +1,16 @@
  cmake_minimum_required(VERSION 3.23)
 
- project(demo)
+ project(DEMO)
 
  set(CMAKE_CXX_STANDARD 11)
 
  add_executable(
-         demo
+         DEMO
          main.cpp
  )
 
  target_link_libraries(${PROJECT_NAME}
-         libary
+         FLANCK
          # Add any other libs you want to use here
          )
 
