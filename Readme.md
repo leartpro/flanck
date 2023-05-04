@@ -1,7 +1,6 @@
-# FLANCK LIBRARY
+# FLANCK SIMPLE LIBRARY
 
-Beinhaltet Lexer, Parser und Interpreter der Sprache Flanck.
-Des Weiteren wird die Wrapperklasse Stack exportiert.
+
 
 ## CONFIGURATION
 

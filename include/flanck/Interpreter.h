@@ -1,5 +1,5 @@
-#ifndef PLANCK_INTERPRETER_H
-#define PLANCK_INTERPRETER_H
+#ifndef FLANCK_INTERPRETER_H
+#define FLANCK_INTERPRETER_H
 
 #include <string>
 #include <utility>
@@ -36,4 +36,4 @@ private:
     Parser &parser_;
     vector<Stack> stacks_;
 };
-#endif //PLANCK_INTERPRETER_H
+#endif //FLANCK_INTERPRETER_H

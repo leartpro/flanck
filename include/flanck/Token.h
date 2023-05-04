@@ -1,5 +1,5 @@
-#ifndef PLANCK_TOKEN_H
-#define PLANCK_TOKEN_H
+#ifndef FLANCK_TOKEN_H
+#define FLANCK_TOKEN_H
 /**
  *
  */
@@ -12,4 +12,4 @@ enum Token {
     Divider,
     Eof
 };
-#endif //PLANCK_TOKEN_H
+#endif //FLANCK_TOKEN_H

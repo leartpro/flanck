@@ -1,5 +1,5 @@
-#ifndef PLANCK_LEXER_H
-#define PLANCK_LEXER_H
+#ifndef FLANCK_LEXER_H
+#define FLANCK_LEXER_H
 
 #include <string>
 #include <utility>
@@ -27,4 +27,4 @@ private:
     int position_;
     std::string input_;
 };
-#endif //PLANCK_LEXER_H
+#endif //FLANCK_LEXER_H

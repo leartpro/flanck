@@ -1,5 +1,5 @@
-#ifndef PLANCK_PARSER_H
-#define PLANCK_PARSER_H
+#ifndef FLANCK_PARSER_H
+#define FLANCK_PARSER_H
 
 #include <string>
 #include <utility>
@@ -49,4 +49,4 @@ private:
     Token currentToken_;
     int maxNumStacks_;
 };
-#endif //PLANCK_PARSER_H
+#endif //FLANCK_PARSER_H

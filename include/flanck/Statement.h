@@ -1,5 +1,5 @@
-#ifndef PLANCK_AST_H
-#define PLANCK_AST_H
+#ifndef FLANCK_AST_H
+#define FLANCK_AST_H
 
 #include <string>
 #include "Token.h"
@@ -23,4 +23,4 @@ struct Statement {
     }
     vector<Stack> conditions, instructions;
 };
-#endif //PLANCK_AST_H
+#endif //FLANCK_AST_H
