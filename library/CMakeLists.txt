@@ -9,7 +9,7 @@ set(FLANCK PARENT_SCOPE)
 include_directories(include)
 
 add_library(
-        FLANCK OBJECT
+        FLANCK STATIC
         src/Lexer.cpp
         src/Parser.cpp
         src/Interpreter.cpp
