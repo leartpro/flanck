@@ -13,5 +13,6 @@ add_library(
 )
 
 target_include_directories(
+        flanck PUBLIC simple_library/include
         flanck PUBLIC simple_library
 )
