@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(FLANCK)
+project(simple_library)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(FLANCK PARENT_SCOPE)
+set(simple_library PARENT_SCOPE)
 
 include_directories(include)
 
 add_library(
-        FLANCK STATIC
+        simple_library STATIC
         src/Lexer.cpp
         src/Parser.cpp
         src/Interpreter.cpp
@@ -17,5 +17,5 @@ add_library(
 )
 
 target_include_directories(
-        FLANCK PUBLIC include
+        simple_library PUBLIC include
 )
