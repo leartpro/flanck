@@ -5,6 +5,13 @@ Dabei wurde der Syntax minimal gehalten und gleichzeitig eine hohe Funktionalit�
 
 ## ABOUT
 
+Die Bibliothek liefert den Lexer, den Parser und den Interpreter der Sprache Flanck.
+Dazu ebenfalls die Utility-Klassen Stack, Statement und Token.
+Der `Lexer` benötigt eine `char*` als Parameter und kann dann dem `Parser`als Parameter übergeben werden.
+Dieser wiederum kann dem `Interpreter`als Parameter übergeben werden.
+`Interpreter.interpret()` interpretiert den übergebenen Code.
+Anschließend kann der Ausgabe-`Stack` abgerufen und ausgegeben werden.
+
 ### IDEA
 
 Die Idee von Flanck orientiert sich an einem Kellerautomaten.
@@ -12,6 +19,43 @@ Das Alphabet besteht dabei nur aus `0` und `1`.
 In Flanck kann es beliebig viele Keller geben, womit Flanck Touring-Complete ist.
 Eine weitere Besonderheit ist, dass in jedem Schritt beliebig viele Terminale
 von einem Keller gelesen werden können, als auch hinzugefügt werden können.
+
+## LIBRARY USAGE
+
+1. create a folder called `libs` in your project root
+2. checkout the `libs` folder and run
+    ```sh
+      git clone https://github.com/leartpro/flanck.git -b library
+    ```
+3. configure your CMakeLists.txt
+    ```cmake
+        add_subdirectory(libs/flanck)
+        target_link_libraries(${PROJECT_NAME}
+            flanck
+            # Add any other libs you want to use here
+        )
+    ```
+4. to use flanck in your code:
+   ```c++
+      #include "flanck.h"
+   ```
+   
+## DEMO
+
+Zuerst muss die Library kompiliert werden.
+Dazu muss in das Verzeichnis `library` navigiert werden.
+Anschließend muss `compile.sh` ausgeführt werden.
+
+Nun kann `to_path.sh` ebenfalls ausgeführt werden, 
+um die Bibliothek global verwenden zu können.
+Da hier Zugriff auf `/usr/local/lib` benötigt wird,
+muss mit `sudo` ausgeführt werden.
+
+Im Verzeichnis `demo`muss nun ebenfalls `compile.sh`ausgeführt werden.
+Jetzt kann `run_from_path.sh` oder `run_from_libary.sh` ausgeführt werden.
+Um `run_from_path.sh` zu verwenden, muss vorher die Library global installiert worden sein.
+
+Es sollte nun `Hello World` in der Konsole ausgegeben werden.
 
 ### USAGE
 
@@ -93,40 +137,3 @@ und eine Ausgabe in Ascii gewünscht ist, eignet sich der folgende Aufruf:
 ```sh
     $ flanck example.flanck -b -a _ 0
 ```
-
-## LIBRARY USAGE
-
-1. create a folder called `libs` in your project root
-2. checkout the `libs` folder and run
-    ```sh
-      git clone https://github.com/leartpro/flanck.git -b library
-    ```
-3. configure your CMakeLists.txt
-    ```cmake
-        add_subdirectory(libs/flanck)
-        target_link_libraries(${PROJECT_NAME}
-            flanck
-            # Add any other libs you want to use here
-        )
-    ```
-4. to use flanck in your code:
-   ```c++
-      #include "flanck.h"
-   ```
-   
-## DEMO
-
-Zuerst muss die Library kompiliert werden.
-Dazu muss in das Verzeichnis `library` navigiert werden.
-Anschließend muss `compile.sh` ausgeführt werden.
-
-Nun kann `to_path.sh` ebenfalls ausgeführt werden, 
-um die Bibliothek global verwenden zu können.
-Da hier Zugriff auf `/usr/local/lib` benötigt wird,
-muss mit `sudo` ausgeführt werden.
-
-Im Verzeichnis `demo`muss nun ebenfalls `compile.sh`ausgeführt werden.
-Jetzt kann `run_from_path.sh` oder `run_from_libary.sh` ausgeführt werden.
-Um `run_from_path.sh` zu verwenden, muss vorher die Library global installiert worden sein.
-
-Es sollte nun `Hello World` in der Konsole ausgegeben werden.
