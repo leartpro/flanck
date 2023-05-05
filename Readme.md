@@ -20,6 +20,22 @@ In Flanck kann es beliebig viele Keller geben, womit Flanck Touring-Complete ist
 Eine weitere Besonderheit ist, dass in jedem Schritt beliebig viele Terminale
 von einem Keller gelesen werden können, als auch hinzugefügt werden können.
 
+### SYNTAX
+
+Der erste Keller dient zur Ausgabe.
+Pro Zeile darf es nur eine Anweisung geben.
+Es kann so viele Keller geben wie man möchte.
+Jede Anweisung setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Instruktionen zusammen.
+Es müssen keine Bedingungen oder Instruktionen in einem Statement vorkommen.
+Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
+Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gilt die Bedingung als nicht erfüllt.
+Ein Keller wird mit `[` angefangen und mit `]` beendet.
+Die Anweisungen werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
+Die Keller verwalten als Symbole nur `0` und `1`.
+Die Anweisungen werden von oben nach unten abgearbeitet.
+Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text zu Binär umgewandelt.
+Ein leerer Keller in der Bedingung, bedeutet, dass dieser nicht auf eine Bedingung getestet wird.
+
 ## LIBRARY USAGE
 
 1. create a folder called `libs` in your project root
@@ -101,22 +117,6 @@ Um einen Keller zu überspringen, kann `_` verwendet werden.
     $ flanck example.flanck -a -b _ Hello World!
 ```
 Hier wird nur auf den zweiten und dritten Keller gelegt.
-
-### SYNTAX
-
-Der erste Keller dient zur Ausgabe.
-Pro Zeile darf es nur eine Anweisung geben.
-Es kann so viele Keller geben wie man möchte.
-Jede Anweisung setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Instruktionen zusammen.
-Es müssen keine Bedingungen oder Instruktionen in einem Statement vorkommen.
-Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
-Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gilt die Bedingung als nicht erfüllt.
-Ein Keller wird mit `[` angefangen und mit `]` beendet.
-Die Anweisungen werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
-Die Keller verwalten als Symbole nur `0` und `1`.
-Die Anweisungen werden von oben nach unten abgearbeitet.
-Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text zu Binär umgewandelt.
-Ein leerer Keller in der Bedingung, bedeutet, dass dieser nicht auf eine Bedingung getestet wird.
 
 ### EXAMPLES
 

@@ -12,4 +12,3 @@
  target_link_libraries(${PROJECT_NAME}
          simple_library
  )
-
