@@ -4,13 +4,12 @@ project(FLANCK)
 
 set(CMAKE_CXX_STANDARD 11)
 
-
 set(FLANCK PARENT_SCOPE)
 
 include_directories(include)
 
 add_library(
-        FLANCK SHARED
+        FLANCK OBJECT
         src/Lexer.cpp
         src/Parser.cpp
         src/Interpreter.cpp
