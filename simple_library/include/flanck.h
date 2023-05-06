@@ -1,5 +1,8 @@
 #ifndef FLANCK_H
 #define FLANCK_H
+/*
+ * Allows to import the complete Flanck-library in once.
+ */
 #include "Lexer.h"
 #include "Parser.h"
 #include "Interpreter.h"

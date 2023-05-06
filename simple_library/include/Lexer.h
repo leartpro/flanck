@@ -6,21 +6,21 @@
 #include "Token.h"
 
 /**
- *
+ * The Lexer contains methods to tokenize the program code.
  */
 class Lexer
 {
 public:
 
     /**
-     *
-     * @param input
+     * Initializes the Lexer with the given program code.
+     * @param input the given program code.
      */
     explicit Lexer(const char* input) : input_(input), position_(0) {}
 
     /**
-     *
-     * @return
+     * Returns the current Token and increases the position.
+     * @return the current Token.
      */
     Token getNextToken();
 private:

@@ -9,27 +9,27 @@
 #include "Parser.h"
 
 /**
- *
+ * The Interpreter interprets the Statements.
  */
 class Interpreter
 {
 public:
 
     /**
-     *
+     * Initializes the Interpreter with the Parser and the Stacks.
      * @param parser
      * @param stacks
      */
     explicit Interpreter(Parser& parser, vector<Stack>& stacks) : parser_(parser), stacks_(std::move(stacks)) {};
 
     /**
-     *
+     * Interprets the statements and applies them to the stacks in the process.
      */
     void interpret();
 
     /**
-     *
-     * @return
+     * Returns always the first Stack.
+     * @return a Stack, containing the program Output.
      */
     Stack getOutputStack();
 private:

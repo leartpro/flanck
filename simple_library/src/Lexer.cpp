@@ -2,10 +2,6 @@
 
 using namespace std;
 
-/**
- *
- * @return
- */
 Token Lexer::getNextToken() {
     while (position_ < input_.size()) {
         switch (input_[position_]) {
@@ -28,9 +24,11 @@ Token Lexer::getNextToken() {
                 ++position_;
                 return Token::Eol;
             default:
+                //every non Token-Terminal is ignored
                 ++position_;
                 continue;
         }
     }
+    //If position has reached the end.
     return Token::Eof;
 }

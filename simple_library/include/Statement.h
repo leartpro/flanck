@@ -9,13 +9,14 @@
 
 using namespace std;
 /**
- *
+ * A statement contains conditions and instructions.
  */
 struct Statement {
     /**
-     *
-     * @param conditions
-     * @param instructions
+     * Conditions contains the Stacks for the Divider
+     * and Instructions the after.
+     * @param conditions the conditions for this statement
+     * @param instructions the instructions for this statement
      */
     explicit Statement(vector<Stack> conditions, vector<Stack> instructions) {
         this->conditions = std::move(conditions);
