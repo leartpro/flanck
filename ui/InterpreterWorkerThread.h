@@ -8,18 +8,28 @@
 
 #include <QThread>
 #include <QMutex>
+#include "../interpreter/Interpreter.h"
 
-class InterpreterWorkerThread : public QThread {
+class InterpreterWorkerThread : public QThread, public InterpreterObserver {
     Q_OBJECT
 
-    InterpreterWorkerThread(const QString& programCode);
+public: explicit InterpreterWorkerThread(const QString& programCode);
+
+private:
 
     void run() override;
 
 public:
+    void end(Interpreter *interpreter) override;
+    void start(Interpreter *interpreter) override;
+
     void input(const QString& s);
-signals:
+    void change(Interpreter *interpreter) override;
+    void inputAsk(Interpreter *interpreter) override;
+
+        signals:
     void output(const QString& s);
+    //void finished();
 
 private:
     QMutex inputMutex;

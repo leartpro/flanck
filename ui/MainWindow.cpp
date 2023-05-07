@@ -8,10 +8,11 @@
 #include <QPlainTextEdit>
 #include "widgets/FlanckSyntaxHighlighter.h"
 #include "widgets/OnlyWriteLineEdit.h"
+#include "InterpreterWorkerThread.h"
 #include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent) {
+        QMainWindow(parent), currentWorker(nullptr) {
     isMaxHorizontal = false;
     isMaxVertical = false;
     setWindowTitle("flanck");
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scrollArea->setWidgetResizable(true);
     scrollArea->setWidget(outputLabel);
 
-    auto *textEdit = new QPlainTextEdit(this);
+    textEdit = new QPlainTextEdit(this);
     new FlanckSyntaxHighlighter(textEdit->document());
 
     auto *layout = new QGridLayout();
@@ -46,19 +47,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(button, SIGNAL(released()), this, SLOT(startProgram()));
 
     refreshFrameTimerId = startTimer(10);
-    readOutputTimerId = startTimer(100);
 }
 
 MainWindow::~MainWindow() {
     killTimer(refreshFrameTimerId);
-    killTimer(readOutputTimerId);
 }
 
 void MainWindow::timerEvent(QTimerEvent *event) {
     if (event->timerId() == refreshFrameTimerId) {
         refreshFrame();
-    } else {
-        readOutput();
     }
 }
 
@@ -73,10 +70,6 @@ void MainWindow::refreshFrame() {
     }
 }
 
-void MainWindow::readOutput() {
-
-}
-
 void MainWindow::newOutput(const QString &s) {
     QScrollBar *scrollBarHorizontal = scrollArea->horizontalScrollBar();
     QScrollBar *scrollBarVertical = scrollArea->verticalScrollBar();
@@ -86,5 +79,21 @@ void MainWindow::newOutput(const QString &s) {
 }
 
 void MainWindow::startProgram() {
+    if(currentWorker) {
+        currentWorker->requestInterruption();
+    }
 
+    outputLabel->setText("");
+    inputEdit->setText("");
+    setWindowTitle("flanck - running");
+
+    currentWorker = new InterpreterWorkerThread(textEdit->toPlainText());
+    currentWorker->start();
+    connect(currentWorker, SIGNAL(finished()), this, SLOT(programFinished()));
+    connect(currentWorker, SIGNAL(output(QString)), this, SLOT(newOutput(QString)));
+}
+
+void MainWindow::programFinished() {
+    setWindowTitle("flanck - finished");
+    currentWorker = nullptr;
 }

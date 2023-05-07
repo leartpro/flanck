@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QScrollArea>
+#include <QPlainTextEdit>
 #include "widgets/OnlyWriteLineEdit.h"
 
 class MainWindow : public QMainWindow
@@ -19,23 +20,24 @@ private:
     QLabel *outputLabel;
     OnlyWriteLineEdit *inputEdit;
     QScrollArea *scrollArea;
+    QPlainTextEdit *textEdit;
+    QThread* currentWorker;
 
     int refreshFrameTimerId;
-    int readOutputTimerId;
 
     bool isMaxVertical;
     bool isMaxHorizontal;
 private slots:
     void startProgram();
+    void programFinished();
+    void newOutput(const QString &s);
 
 protected:
     void timerEvent(QTimerEvent *event) override;
 
     void refreshFrame();
 
-    void readOutput();
 
-    void newOutput(const QString &s);
 };
 
 #endif // MAINWINDOW_H
