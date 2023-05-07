@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->addWidget(button, 1, 0);
     layout->addWidget(new QLabel("input:"), 2, 0);
     layout->addWidget(inputEdit, 3, 0);
-    layout->addWidget(new QLabel("output"), 4, 0);
+    layout->addWidget(new QLabel("output:"), 4, 0);
     layout->addWidget(scrollArea, 5, 0);
 
     QObject::connect(button, SIGNAL(released()), this, SLOT(startProgram()));
