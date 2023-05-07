@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QScrollArea>
-#include "OnlyWriteLineEdit.h"
+#include "widgets/OnlyWriteLineEdit.h"
 
 class MainWindow : public QMainWindow
 {

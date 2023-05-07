@@ -6,8 +6,8 @@
 #include <QHBoxLayout>
 #include <QObject>
 #include <QPlainTextEdit>
-#include "FlanckSyntaxHighlighter.h"
-#include "OnlyWriteLineEdit.h"
+#include "widgets/FlanckSyntaxHighlighter.h"
+#include "widgets/OnlyWriteLineEdit.h"
 #include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent) :

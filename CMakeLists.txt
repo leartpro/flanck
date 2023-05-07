@@ -15,7 +15,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(flanck_gui main.cpp MainWindow.cpp MainWindow.h FlanckSyntaxHighlighter.h FlanckSyntaxHighlighter.cpp OnlyWriteLineEdit.cpp InterpreterWorkerThread.h InterpreterWorkerThread.cpp)
+add_executable(flanck_gui main.cpp ui/MainWindow.cpp ui/MainWindow.h ui/widgets/FlanckSyntaxHighlighter.h ui/widgets/FlanckSyntaxHighlighter.cpp ui/widgets/OnlyWriteLineEdit.cpp ui/InterpreterWorkerThread.h ui/InterpreterWorkerThread.cpp)
 target_link_libraries(flanck_gui
         Qt6::Core
         Qt6::Gui

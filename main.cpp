@@ -5,7 +5,7 @@
 #include <iostream>
 #include <QAccessible>
 #include <QLabel>
-#include "MainWindow.h"
+#include "ui/MainWindow.h"
 
 using namespace std;
 
