@@ -13,7 +13,7 @@
 class InterpreterWorkerThread : public QThread, public InterpreterObserver {
     Q_OBJECT
 
-public: explicit InterpreterWorkerThread(const QString& programCode);
+public: explicit InterpreterWorkerThread(const QString& programCode, const QString& binaryInitialInput);
 
 private:
 
@@ -36,6 +36,7 @@ private:
     bool newInput;
     std::string inputString;
     std::string programCode;
+    const QString &binaryInitialInput;
 };
 
 

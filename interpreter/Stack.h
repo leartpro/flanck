@@ -31,8 +31,8 @@ public:
 
     static Stack fromBinaryString(string s) {
         vector<bool> data;
-        for (int i = int(s.length()) - 1; i >= 0; i--) {
-            data.push_back(s[i] == '1');
+        for (char c : s) {
+            data.push_back(c == '1');
         }
         return Stack(data);
     }

@@ -13,7 +13,8 @@ void InterpreterWorkerThread::run() {
     unordered_map<int, NotificationChangeType> notifications = {{1, NotificationChangeType::onNewByteChange}};
     InterpreterOptions options(10, 100000000, 10, 2, 1000*8, constraints, notifications);
     Interpreter interpreter(parser, *this, options);
-    interpreter.replaceStack(0, Stack::fromBinaryString("00000000"));
+    auto initialStack = Stack::fromBinaryString(binaryInitialInput.toStdString());
+    interpreter.replaceStack(0, initialStack);
     auto endReason = interpreter.run();
     if(!isInterruptionRequested()) {
         emit end(endReason);
@@ -23,8 +24,8 @@ void InterpreterWorkerThread::run() {
     //delete this;
 }
 
-InterpreterWorkerThread::InterpreterWorkerThread(const QString &programCode) : programCode(programCode.toStdString()),
-                                                                               newInput(false) {
+InterpreterWorkerThread::InterpreterWorkerThread(const QString &programCode, const QString& binaryInitialInput) : programCode(programCode.toStdString()),
+                                                                               binaryInitialInput(binaryInitialInput), newInput(false) {
 
 }
 

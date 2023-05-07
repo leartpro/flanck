@@ -20,6 +20,7 @@ public:
 private:
     QWidget *button;
     QLabel *outputLabel;
+    QLineEdit *initialEdit;
     OnlyWriteLineEdit *inputEdit;
     QScrollArea *scrollArea;
     QPlainTextEdit *textEdit;

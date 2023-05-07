@@ -10,6 +10,9 @@
 #include "InterpreterWorkerThread.h"
 #include <QScrollBar>
 #include <QException>
+#include <QRegularExpression>
+#include <QValidator>
+#include <QRegularExpressionValidator>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), currentWorker(nullptr) {
@@ -18,6 +21,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("flanck");
 
     button = new QPushButton("run flanck code");
+
+    initialEdit = new QLineEdit();
+    QRegularExpression rx ("^[01]*$");
+    auto * v = new QRegularExpressionValidator (rx, this);
+    initialEdit -> setValidator(v);
 
     inputEdit = new OnlyWriteLineEdit();
     inputEdit->setDisabled(true);
@@ -41,10 +49,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     layout->addWidget(textEdit, 0, 0);
     layout->addWidget(button, 1, 0);
-    layout->addWidget(new QLabel("input:"), 2, 0);
-    layout->addWidget(inputEdit, 3, 0);
-    layout->addWidget(new QLabel("output:"), 4, 0);
-    layout->addWidget(scrollArea, 5, 0);
+    layout->addWidget(new QLabel("initial input in binary:"), 2, 0);
+    layout->addWidget(initialEdit, 3, 0);
+    layout->addWidget(new QLabel("input:"), 4, 0);
+    layout->addWidget(inputEdit, 5, 0);
+    layout->addWidget(new QLabel("output:"), 6, 0);
+    layout->addWidget(scrollArea, 7, 0);
 
     QObject::connect(button, SIGNAL(released()), this, SLOT(startProgram()));
 
@@ -94,7 +104,7 @@ void MainWindow::startProgram() {
     inputEdit->setDisabled(false);
     setWindowTitle("flanck - running");
 
-    currentWorker = new InterpreterWorkerThread(textEdit->toPlainText());
+    currentWorker = new InterpreterWorkerThread(textEdit->toPlainText(), initialEdit->text());
     currentWorker->start();
     connect(currentWorker, SIGNAL(end(InterpreterEndReason)), this, SLOT(programFinished(InterpreterEndReason)));
     connect(currentWorker, SIGNAL(output(QString)), this, SLOT(newOutput(QString)));
