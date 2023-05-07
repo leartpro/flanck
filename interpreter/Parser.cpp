@@ -2,6 +2,7 @@
 #include "Stack.h"
 
 void Parser::parse() {
+    maxNumStacks_ = 0;
     statements_.clear();
     while (currentToken_ != Token::Eof) {
         bool valueExpected = false;

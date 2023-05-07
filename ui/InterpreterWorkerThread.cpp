@@ -11,10 +11,13 @@ void InterpreterWorkerThread::run() {
     parser.parse();
     unordered_map<int, StackConstraint> constraints = {};
     unordered_map<int, NotificationChangeType> notifications = {{1, NotificationChangeType::onNewByteChange}};
-    InterpreterOptions options(10, 100000, 10, 2, constraints, notifications);
+    InterpreterOptions options(10, 100000000, 10, 2, 1000*8, constraints, notifications);
     Interpreter interpreter(parser, *this, options);
     interpreter.replaceStack(0, Stack::fromBinaryString("1"));
-    interpreter.start();
+    auto endReason = interpreter.run();
+    if(!isInterruptionRequested()) {
+        emit end(endReason);
+    }
     // TODO: deleting?????
     //delete [] s;
     //delete this;
@@ -63,6 +66,6 @@ void InterpreterWorkerThread::inputAsk(Interpreter *interpreter) {
     }
 }
 
-void InterpreterWorkerThread::start(Interpreter *interpreter) {}
+void InterpreterWorkerThread::started(Interpreter *interpreter) {}
 
-void InterpreterWorkerThread::end(Interpreter *interpreter) {}
+void InterpreterWorkerThread::ended(Interpreter *interpreter) {}

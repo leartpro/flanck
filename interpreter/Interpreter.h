@@ -26,20 +26,29 @@ enum StackConstraint {
     writeOnly,
 };
 
+enum InterpreterEndReason {
+    standard,
+    forceEnd,
+    tooMuchOutput,
+    tooManyCycles,
+};
+
 struct InterpreterOptions {
     InterpreterOptions(int readCount, int endCount,
                        int writeNotificationCount,
                        int minStackLength,
+                       int outputLimit,
                        unordered_map<int, StackConstraint> &constraints,
                        unordered_map<int, NotificationChangeType> &notifications) :
             readCount(readCount), endCount(endCount), writeNotificationCount(writeNotificationCount),
             minStackLength(minStackLength), constraints(constraints),
-            notifications(notifications) {}
+            notifications(notifications), outputLimit(outputLimit) {}
 
     const int readCount;
     const int writeNotificationCount;
     const int endCount;
     const int minStackLength;
+    const int outputLimit;
     const unordered_map<int, StackConstraint> constraints;
     const unordered_map<int, NotificationChangeType> notifications;
 
@@ -63,13 +72,13 @@ class InterpreterObserver {
 public:
     InterpreterObserver() = default;
 
-    virtual void start(Interpreter *interpreter) = 0;
+    virtual void started(Interpreter *interpreter) = 0;
 
     virtual void inputAsk(Interpreter *interpreter) = 0;
 
     virtual void change(Interpreter *interpreter) = 0;
 
-    virtual void end(Interpreter *interpreter) = 0;
+    virtual void ended(Interpreter *interpreter) = 0;
 };
 
 
@@ -113,7 +122,7 @@ public:
         return stackLength;
     }
 
-    void start();
+    InterpreterEndReason run();
 
     void end();
 

@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 #include <QMainWindow>
-#include <QDebug>
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -10,6 +9,7 @@
 #include "widgets/OnlyWriteLineEdit.h"
 #include "InterpreterWorkerThread.h"
 #include <QScrollBar>
+#include <QException>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), currentWorker(nullptr) {
@@ -20,10 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     button = new QPushButton("run flanck code");
 
     inputEdit = new OnlyWriteLineEdit();
+    inputEdit->setDisabled(true);
 
     outputLabel = new QLabel("");
     outputLabel->setScaledContents(true); // TODO: need?
-    outputLabel->setContentsMargins(4, 0, 4, 0);
+    outputLabel->setContentsMargins(4, 4, 4, 4);
     scrollArea = new QScrollArea();
     scrollArea->setBackgroundRole(QPalette::Dark);
     scrollArea->setWidgetResizable(true);
@@ -85,15 +86,29 @@ void MainWindow::startProgram() {
 
     outputLabel->setText("");
     inputEdit->setText("");
+    inputEdit->setDisabled(false);
     setWindowTitle("flanck - running");
 
     currentWorker = new InterpreterWorkerThread(textEdit->toPlainText());
     currentWorker->start();
-    connect(currentWorker, SIGNAL(finished()), this, SLOT(programFinished()));
+    connect(currentWorker, SIGNAL(end(InterpreterEndReason)), this, SLOT(programFinished(InterpreterEndReason)));
     connect(currentWorker, SIGNAL(output(QString)), this, SLOT(newOutput(QString)));
 }
 
-void MainWindow::programFinished() {
-    setWindowTitle("flanck - finished");
+void MainWindow::programFinished(InterpreterEndReason reason) {
+    switch(reason) {
+        case tooMuchOutput:
+            setWindowTitle("flanck - output limit of 1000 exceeded");
+            break;
+        case tooManyCycles:
+            setWindowTitle("flanck - timeout, took too long");
+            break;
+        case standard:
+            setWindowTitle("flanck - finished");
+            break;
+        case forceEnd:
+            throw QException();
+    }
     currentWorker = nullptr;
+    inputEdit->setDisabled(true);
 }

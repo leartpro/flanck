@@ -20,8 +20,8 @@ private:
     void run() override;
 
 public:
-    void end(Interpreter *interpreter) override;
-    void start(Interpreter *interpreter) override;
+    void ended(Interpreter *interpreter) override;
+    void started(Interpreter *interpreter) override;
 
     void input(const QString& s);
     void change(Interpreter *interpreter) override;
@@ -29,7 +29,7 @@ public:
 
         signals:
     void output(const QString& s);
-    //void finished();
+    void end(InterpreterEndReason reason);
 
 private:
     QMutex inputMutex;

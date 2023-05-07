@@ -1,7 +1,8 @@
 #include "Interpreter.h"
 
-void Interpreter::start() {
-    observer_.start(this);
+InterpreterEndReason Interpreter::run() {
+    unsigned long outputCount = 0;
+    observer_.started(this);
     vector<Statement> statements = parser_.getStatements();
     resetCountTillEnd();
     countTillReadAsk = options_.readCount;
@@ -32,6 +33,7 @@ void Interpreter::start() {
                 if (!stacks_[i].isEmpty() && notificationMap_[i] == InternNotificationChangeType_::newBytesChange_) {
                     auto &addedChangeMap = change_.byteAddChangeMap[i];
                     addedChangeMap.push(statement.instructions[i]);
+                    outputCount += statement.instructions[i].bitLength();
                     if(addedChangeMap.moreThanAByteLength()) {
                         newNotification = true;
                         change_.changeMap[i] = true;
@@ -39,6 +41,10 @@ void Interpreter::start() {
                 }
             }
             next_statement:;
+        }
+        if(outputCount > options_.outputLimit) {
+            observer_.ended(this);
+            return InterpreterEndReason::tooMuchOutput;
         }
         if (countTillWriteNotification_-- == 0) {
             countTillWriteNotification_ = options_.writeNotificationCount;
@@ -52,11 +58,20 @@ void Interpreter::start() {
             observer_.inputAsk(this);
             countTillReadAsk = options_.readCount;
         }
-    } while (stackChanged || forceEnd_);
-    if (newNotification && !forceEnd_) {
+        if(countTillEnd_ == 0) {
+            observer_.ended(this);
+            return InterpreterEndReason::tooManyCycles;
+        }
+        if(forceEnd_) {
+            observer_.ended(this);
+            return InterpreterEndReason::forceEnd;
+        }
+    } while (stackChanged);
+    if (newNotification) {
         observer_.change(this);
     }
-    observer_.end(this);
+    observer_.ended(this);
+    return InterpreterEndReason::standard;
 }
 
 void Interpreter::end() {

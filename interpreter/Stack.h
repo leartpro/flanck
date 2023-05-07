@@ -45,6 +45,10 @@ public:
         return data_.size() >= 8;
     }
 
+    [[nodiscard]] unsigned long bitLength() const {
+        return data_.size();
+    }
+
     __attribute__((always_inline)) inline bool endsWith(Stack other) {
         if (other.data_.empty() && data_.empty()) {
             return true;

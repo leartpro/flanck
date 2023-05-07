@@ -6,6 +6,8 @@
 #include <QScrollArea>
 #include <QPlainTextEdit>
 #include "widgets/OnlyWriteLineEdit.h"
+#include "../interpreter/Interpreter.h"
+#include "InterpreterWorkerThread.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,7 +23,7 @@ private:
     OnlyWriteLineEdit *inputEdit;
     QScrollArea *scrollArea;
     QPlainTextEdit *textEdit;
-    QThread* currentWorker;
+    InterpreterWorkerThread* currentWorker;
 
     int refreshFrameTimerId;
 
@@ -29,7 +31,7 @@ private:
     bool isMaxHorizontal;
 private slots:
     void startProgram();
-    void programFinished();
+    void programFinished(InterpreterEndReason reason);
     void newOutput(const QString &s);
 
 protected:
