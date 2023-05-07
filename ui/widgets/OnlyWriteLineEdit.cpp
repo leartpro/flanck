@@ -5,10 +5,10 @@
 #include <QtGui/qpainter.h>
 #include "OnlyWriteLineEdit.h"
 
-OnlyWriteLineEdit::OnlyWriteLineEdit(QWidget *parent) : QLineEdit(parent) {
+OnlyWriteLineEdit::OnlyWriteLineEdit(QWidget *parent) : QLineEdit(parent), oldLength(0) {
     auto thickCursor = QCursor();
     setCursor(thickCursor);
-
+    connect(this, SIGNAL(textChanged(QString)), this, SLOT(textHasChanged(QString)));
 }
 
 void OnlyWriteLineEdit::mousePressEvent(QMouseEvent *) {
@@ -27,4 +27,12 @@ void OnlyWriteLineEdit::keyPressEvent(QKeyEvent *k) {
         return;
     }
     QLineEdit::keyPressEvent(k);
+}
+
+void OnlyWriteLineEdit::textHasChanged(const QString& s) {
+    if(s.length() > oldLength) {
+        auto changed = s.right(s.length() - oldLength);
+        emit addedText(changed);
+    }
+    oldLength = s.length();
 }

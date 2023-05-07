@@ -13,7 +13,7 @@ void InterpreterWorkerThread::run() {
     unordered_map<int, NotificationChangeType> notifications = {{1, NotificationChangeType::onNewByteChange}};
     InterpreterOptions options(10, 100000000, 10, 2, 1000*8, constraints, notifications);
     Interpreter interpreter(parser, *this, options);
-    interpreter.replaceStack(0, Stack::fromBinaryString("1"));
+    interpreter.replaceStack(0, Stack::fromBinaryString("00000000"));
     auto endReason = interpreter.run();
     if(!isInterruptionRequested()) {
         emit end(endReason);
@@ -61,6 +61,7 @@ void InterpreterWorkerThread::inputAsk(Interpreter *interpreter) {
             Stack oldStack = interpreter->getStack(0);
             newStack.push(oldStack);
             interpreter->replaceStack(0, newStack);
+            newInput = false;
         }
         inputMutex.unlock();
     }

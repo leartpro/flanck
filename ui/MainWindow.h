@@ -29,17 +29,17 @@ private:
 
     bool isMaxVertical;
     bool isMaxHorizontal;
+
 private slots:
     void startProgram();
     void programFinished(InterpreterEndReason reason);
     void newOutput(const QString &s);
+    void newInput(const QString &s);
 
 protected:
     void timerEvent(QTimerEvent *event) override;
 
     void refreshFrame();
-
-
 };
 
 #endif // MAINWINDOW_H

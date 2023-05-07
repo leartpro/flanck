@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     inputEdit = new OnlyWriteLineEdit();
     inputEdit->setDisabled(true);
+    connect(inputEdit, SIGNAL(addedText(QString)), this, SLOT(newInput(QString)));
 
     outputLabel = new QLabel("");
     outputLabel->setScaledContents(true); // TODO: need?
@@ -69,6 +70,10 @@ void MainWindow::refreshFrame() {
         isMaxHorizontal = false;
         isMaxVertical = false;
     }
+}
+
+void MainWindow::newInput(const QString &s) {
+    currentWorker->input(s);
 }
 
 void MainWindow::newOutput(const QString &s) {

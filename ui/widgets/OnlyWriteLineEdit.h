@@ -10,6 +10,7 @@
 
 
 class OnlyWriteLineEdit : public QLineEdit {
+    Q_OBJECT
 
 public:
     explicit OnlyWriteLineEdit(QWidget *parent = nullptr);
@@ -22,6 +23,15 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *) override;
 
     void mouseMoveEvent(QMouseEvent *) override;
+
+private:
+    int oldLength;
+signals:
+    void addedText(const QString &);
+
+private slots:
+    void textHasChanged(const QString&);
+
 };
 
 
