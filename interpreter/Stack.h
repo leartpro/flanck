@@ -37,6 +37,11 @@ public:
         return Stack(data);
     }
 
+    void clearToByteRest() {
+        auto restCount = data_.size() % 8;
+        data_.erase(data_.begin(), data_.end() - long(restCount));
+    }
+
     void clear() {
         data_.clear();
     }

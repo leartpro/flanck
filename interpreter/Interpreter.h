@@ -61,7 +61,7 @@ struct StackChange {
     void resetChangeStack() {
         fill(changeMap.begin(), changeMap.end(), false);
         for(auto& a : byteAddChangeMap) {
-            a.clear();
+            a.clearToByteRest();
         }
     }
 };
