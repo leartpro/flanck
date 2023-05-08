@@ -12,7 +12,6 @@
 #include <QException>
 #include <QRegularExpression>
 #include <QValidator>
-#include <QRegularExpressionValidator>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), currentWorker(nullptr) {
@@ -104,7 +103,7 @@ void MainWindow::startProgram() {
     inputEdit->setDisabled(false);
     setWindowTitle("flanck - running");
 
-    currentWorker = new InterpreterWorkerThread(textEdit->toPlainText(), initialEdit->text());
+    currentWorker = new InterpreterWorkerThread(textEdit->toPlainText(), initialEdit->text().toStdString());
     currentWorker->start();
     connect(currentWorker, SIGNAL(end(InterpreterEndReason)), this, SLOT(programFinished(InterpreterEndReason)));
     connect(currentWorker, SIGNAL(output(QString)), this, SLOT(newOutput(QString)));

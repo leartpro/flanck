@@ -4,6 +4,8 @@
 
 #include "InterpreterWorkerThread.h"
 
+#include <utility>
+
 void InterpreterWorkerThread::run() {
     auto s = programCode.c_str();
     Lexer lexer(s);
@@ -11,9 +13,9 @@ void InterpreterWorkerThread::run() {
     parser.parse();
     unordered_map<int, StackConstraint> constraints = {};
     unordered_map<int, NotificationChangeType> notifications = {{1, NotificationChangeType::onNewByteChange}};
-    InterpreterOptions options(10, 100000000, 10, 2, 1000*8, constraints, notifications);
+    InterpreterOptions options(100, 100000000, 100, 2, 1000*8, constraints, notifications);
     Interpreter interpreter(parser, *this, options);
-    auto initialStack = Stack::fromBinaryString(binaryInitialInput.toStdString());
+    auto initialStack = Stack::fromBinaryString(binaryInitialInput);
     interpreter.replaceStack(0, initialStack);
     auto endReason = interpreter.run();
     if(!isInterruptionRequested()) {
@@ -24,8 +26,8 @@ void InterpreterWorkerThread::run() {
     //delete this;
 }
 
-InterpreterWorkerThread::InterpreterWorkerThread(const QString &programCode, const QString& binaryInitialInput) : programCode(programCode.toStdString()),
-                                                                               binaryInitialInput(binaryInitialInput), newInput(false) {
+InterpreterWorkerThread::InterpreterWorkerThread(const QString &programCode, string binaryInitialInput) : programCode(programCode.toStdString()),
+                                                                               binaryInitialInput(std::move(binaryInitialInput)), newInput(false) {
 
 }
 
