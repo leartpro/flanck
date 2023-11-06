@@ -1,0 +1,22 @@
+//TODO: reverse numbers and then reverse again and fill with zeros and then reverse for bit-operation
+out[]a[0]plus[]b[]isrev[11]:out[]a[]plus[]b[]isrev[11]
+out[]a[0]plus[]b[]isrev[1]:out[]a[]plus[]b[]isrev[11]
+
+out[]a[0]plus[]b[]isrev[11]:out[]a[]plus[]b[]isrev[1]reva[0]
+out[]a[1]plus[]b[]isrev[11]:out[]a[]plus[]b[]isrev[1]reva[1]
+
+out[]a[]plus[]b[0]isrev[1]:out[]a[]plus[]b[]isrev[0]reva[0]revb[0]
+out[]a[]plus[]b[0]isrev[11]:out[]a[]plus[]b[]isrev[1]reva[0]revb[0]
+out[]a[]plus[]b[1]isrev[1]:out[]a[]plus[]b[]isrev[0]reva[0]revb[1]
+out[]a[]plus[]b[1]isrev[11]:out[]a[]plus[]b[]isrev[1]reva[0]revb[1]
+
+out[]a[]plus[]b[]isrev[0]:out[]a[]plus[]b[]isrev[0]reva[]revb[]calc[1]memOne[0]
+
+out[]a[]plus[]b[]isrev[]reva[0]revb[0]calc[1]memOne[0]:out[0]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[0]
+out[]a[]plus[]b[]isrev[]reva[1]revb[0]calc[1]memOne[0]:out[1]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[0]
+out[]a[]plus[]b[]isrev[]reva[0]revb[1]calc[1]memOne[0]:out[1]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[0]
+out[]a[]plus[]b[]isrev[]reva[1]revb[1]calc[1]memOne[0]:out[0]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[1]
+out[]a[]plus[]b[]isrev[]reva[0]revb[0]calc[1]memOne[1]:out[1]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[0]
+out[]a[]plus[]b[]isrev[]reva[1]revb[0]calc[1]memOne[1]:out[0]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[1]
+out[]a[]plus[]b[]isrev[]reva[0]revb[1]calc[1]memOne[1]:out[0]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[1]
+out[]a[]plus[]b[]isrev[]reva[1]revb[1]calc[1]memOne[1]:out[1]a[]plus[]b[]isrev[]reva[]revb[]calc[1]memOne[1]

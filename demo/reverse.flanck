@@ -1,0 +1,40 @@
+init endOfProgram and endOfLoop
+out[00110000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000000]endOfProgram[00000000]
+
+if endOfLoop = zero, then endOfLoop = one
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000000]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]
+
+if endOfLoop = one and a not empty, rev a.top() and endOfLoop = zero
+out[]a[0]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[0]bRev[]endOfLoop[00000000]endOfProgram[00000000]
+out[]a[1]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[1]bRev[]endOfLoop[00000000]endOfProgram[00000000]
+
+if endOfLoop = one and b not empty, rev b.top() and endOfLoop = zero
+out[]a[]b[0]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[0]endOfLoop[00000000]endOfProgram[00000000]
+out[]a[]b[1]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[1]endOfLoop[00000000]endOfProgram[00000000]
+
+if still endOfLoop = one -> a and b empty, set endOfLoop = two
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+
+//TODO: validate until here
+if endOfLoop = two, then endOfLoop = three
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000011]endOfProgram[00000000]
+
+if endOfLoop = three and aRev and bRev are both not empty, rev a.top() and b.top() and endOfLoop = two
+out[]a[]b[]aRev[0]bRev[0]endOfLoop[00000011]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+out[]a[]b[]aRev[1]bRev[0]endOfLoop[00000011]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+out[]a[]b[]aRev[0]bRev[1]endOfLoop[00000011]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+out[]a[]b[]aRev[1]bRev[1]endOfLoop[00000011]endOfProgram[00000000]:out[]a[1]b[1]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+
+if endOfLoop = three and aRev is emtpy but bRev not, then fill rev b.top() and fill a with zero and endOfLoop = two
+out[]a[]b[]aRev[]bRev[0]endOfLoop[00000011]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+out[]a[]b[]aRev[]bRev[1]endOfLoop[00000011]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+
+if endOfLoop = three and bRev is emtpy but aRev not, then fill rev a.top() and fill b with zero and endOfLoop = two
+out[]a[]b[]aRev[0]bRev[]endOfLoop[00000011]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+out[]a[]b[]aRev[1]bRev[]endOfLoop[00000011]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
+
+if still endOfLoop = three -> a and b are reversed back and filled up with zeros, set endOfLoop = four
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000011]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]
+
+//TODO: temporary exit (set endOfProgram to true)
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[11111111]

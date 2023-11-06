@@ -22,19 +22,23 @@ von einem Keller gelesen werden können, als auch hinzugefügt werden können.
 
 ### SYNTAX
 
-Der erste Keller dient zur Ausgabe.
-Pro Zeile darf es nur eine Anweisung geben.
-Es kann so viele Keller geben wie man möchte.
-Jede Anweisung setzt sich aus beliebig vielen Kellern als Bedingung, einem Trennzeichen `:` und danach aus beliebig vielen Instruktionen zusammen.
-Es müssen keine Bedingungen oder Instruktionen in einem Statement vorkommen.
-Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
-Wenn als Bedingung mehr von einem Keller ausgelesen wird, als enthalten ist, gilt die Bedingung als nicht erfüllt.
-Ein Keller wird mit `[` angefangen und mit `]` beendet.
-Die Anweisungen werden so lange wiederholend ausgeführt, bis es zu keinen Änderungen in den Kellern mehr kommt.
-Die Keller verwalten als Symbole nur `0` und `1`.
-Die Anweisungen werden von oben nach unten abgearbeitet.
+`[]` ist ein Keller.
+In einem Keller können die Symbole `0` und `1` stehen.
+Der erste Keller dient zur Ausgabe und alle (auch der erste) Keller dienen zur Eingabe.
+In jeder Zeile steht genau ein Statement.
+Ein Statement besteht aus Conditions, einem Separator (`:`) und Instructions.
+Conditions und Instructions können aus beliebig vielen Kellern bestehen.
+Ein Statement muss keine Conditions oder Instructions haben.
+Alle Statements werden so lange von oben nach unten abgearbeitet, bis es keine Änderungen in den Stacks mehr gibt. 
+Davon ausgenommen sind Statements ohne Conditions.
+Instructions werden genau dann nicht ausgefüllt, wenn ein Stack in den Conditions nicht erfüllt ist.
+Wenn ein Stack in den Conditions nicht betrachtet werden soll, wird er als leerer Keller repräsentiert.
+Wenn die Conditions erfüllt sind, wird vor der Ausführung der Instructions das "gelesene" von den Stacks genommen.
 Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text zu Binär umgewandelt.
-Ein leerer Keller in der Bedingung, bedeutet, dass dieser nicht auf eine Bedingung getestet wird.
+Keller sind Stacks, daher werden sie immer von oben betrachtet (oben->`[01010]`).
+Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
+
+<!--TODO: Programmeingabe muss richtig rum eingelesen werden, alles andere angepasst werden-->
 
 ## LIBRARY USAGE
 
@@ -56,7 +60,7 @@ Ein leerer Keller in der Bedingung, bedeutet, dass dieser nicht auf eine Bedingu
       #include "flanck.h"
    ```
    
-## DEMO
+## DEMO <!--TODO: does not work that way-->
 
 Zuerst muss die Library kompiliert werden.
 Dazu muss in das Verzeichnis `library` navigiert werden.
@@ -73,7 +77,7 @@ Um `run_from_path.sh` zu verwenden, muss vorher die Library global installiert w
 
 Es sollte nun `Hello World` in der Konsole ausgegeben werden.
 
-### USAGE
+### USAGE <!--TODO: does not fit to #SYNTAX-->
 
 Um eine ``.flanck`` Datei auszuführen muss der Pfad zur Datei angegeben werden.
 Optional kann zusätzlich ein Input angegeben werden.
@@ -118,7 +122,7 @@ Um einen Keller zu überspringen, kann `_` verwendet werden.
 ```
 Hier wird nur auf den zweiten und dritten Keller gelegt.
 
-### EXAMPLES
+### EXAMPLES <!--TODO: incorrect syntax and thrash example-->
 
 ```shell
     [][0]:[0][0]
