@@ -3,6 +3,8 @@
 #include "flanck.h"
 
 using namespace std;
+//TODO: drehe alles um, wo umgedreht werden muss, so das im vector bei index 0 das oberste element ist.
+// also vorn drauf pushen und vorne auch runternehmen
 
 /**
  * Demo for the Flanck library.

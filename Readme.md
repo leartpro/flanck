@@ -37,6 +37,7 @@ Wenn die Conditions erfüllt sind, wird vor der Ausführung der Instructions das
 Die Programmeingabe kann als Text oder als Binär gegeben werden, dabei wird Text zu Binär umgewandelt.
 Keller sind Stacks, daher werden sie immer von oben betrachtet (oben->`[01010]`).
 Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
+Im Code ist ein Stack ein vector<> und dabei ist Index 0 oben.
 
 <!--TODO: Programmeingabe muss richtig rum eingelesen werden, alles andere angepasst werden-->
 

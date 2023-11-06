@@ -39,9 +39,6 @@ struct Stack {
         for (char i: s) {
             for (int j = 7; j >= 0; j--) {
                 data.push_back((i & (1 << j)) != 0);
-                //TODO: für == 0 kommt für s: 0 -> 11001111 und für == 1 kommt für s: 0 -> 00000000
-                // es sollte aber für s: 0 -> 00110000
-                //TODO: gibt result genau falschrum
             }
         }
         return Stack(data);
@@ -75,12 +72,7 @@ struct Stack {
         if (other.height() > this->height()) {
             return false;
         }
-        for (int i = 1; i <= other.height(); i++) {
-            if (this->data_[this->height() - i] != other.data_[other.height() - i]) {
-                return false;
-            }
-        }
-        return true;
+        return std::equal(this->begin(), this->begin() + other.height(), other.begin());
     }
 
     /**
