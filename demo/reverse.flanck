@@ -15,7 +15,6 @@ out[]a[]b[1]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRe
 if still endOfLoop = one -> a and b empty, set endOfLoop = two
 out[]a[]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]
 
-//TODO: validate until here
 if endOfLoop = two, then endOfLoop = three
 out[]a[]b[]aRev[]bRev[]endOfLoop[00000010]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000011]endOfProgram[00000000]
 

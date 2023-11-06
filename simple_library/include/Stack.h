@@ -65,7 +65,7 @@ struct Stack {
      * @return true, if both Stacks are emtpy or
      * and false, if the other-Stack contains more elements than the current one.
      */
-    __attribute__((always_inline)) inline bool endsWith(Stack other) {
+    __attribute__((always_inline)) inline bool startWith(Stack other) {
         if (other.isEmpty() && this->isEmpty()) {
             return true;
         }
@@ -80,7 +80,7 @@ struct Stack {
      * @param other the other Stack.
      */
     __attribute__((always_inline)) inline void push(Stack other) {
-        data_.insert(data_.end(), other.data_.begin(), other.data_.end());
+        data_.insert(data_.begin(), other.data_.begin(), other.data_.end());
     }
 
     /**
@@ -88,7 +88,7 @@ struct Stack {
      * @param amount the amount of elements to remove
      */
     __attribute__((always_inline)) inline void remove(const int& amount) {
-        data_.resize(data_.size() - amount);
+        data_.erase(data_.begin(), data_.begin() + amount);
     }
 
     /**

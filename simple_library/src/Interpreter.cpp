@@ -14,7 +14,7 @@ void Interpreter::interpret() {
                 //if stack in condition is emtpy, skip this stack
                 if(statement.conditions[i].isEmpty()) continue;
                 //if the condition is not met
-                if (!stacks_[i].endsWith(statement.conditions[i])) {
+                if (!stacks_[i].startWith(statement.conditions[i])) {
                     goto next_statement;
                 }
             }
@@ -32,6 +32,7 @@ void Interpreter::interpret() {
             next_statement:;
         }
     } while (stackChanged);
+    int i = 0;
 }
 
 Stack Interpreter::getOutputStack() {
