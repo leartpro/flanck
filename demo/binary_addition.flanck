@@ -1,5 +1,5 @@
 init endOfProgram and endOfLoop
-out[00110000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000000]endOfProgram[00000000]
+out[0]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000000]endOfProgram[00000000]
 
 if endOfLoop = zero, then endOfLoop = one
 out[]a[]b[]aRev[]bRev[]endOfLoop[00000000]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000001]endOfProgram[00000000]
@@ -35,5 +35,36 @@ out[]a[]b[]aRev[1]bRev[]endOfLoop[00000011]endOfProgram[00000000]:out[]a[1]b[0]a
 if still endOfLoop = three -> a and b are reversed back and filled up with zeros, set endOfLoop = four
 out[]a[]b[]aRev[]bRev[]endOfLoop[00000011]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]
 
+if endOfLoop = four, then endOfLoop = five
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]
+//TODO: valid until here
+
+//TODO: wrong behavior for input (calculates to high)
+if endOfLoop = five and a and b are not inverted -> invert a and b and set endOfLoop = four
+out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]:out[]a[]b[]aRev[0]bRev[0]endOfLoop[00000100]endOfProgram[00000000]
+out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]:out[]a[]b[]aRev[1]bRev[0]endOfLoop[00000100]endOfProgram[00000000]
+out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]:out[]a[]b[]aRev[0]bRev[1]endOfLoop[00000100]endOfProgram[00000000]
+out[]a[1]b[1]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]:out[]a[]b[]aRev[1]bRev[1]endOfLoop[00000100]endOfProgram[00000000]
+
+if still endOfLoop = five, then endOfLoop = six and b=0
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000101]endOfProgram[00000000]:out[]a[]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+
+######## until here is a for value and b for carry-on ########
+if endOfLoop = six, then endOfLoop = seven
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000111]endOfProgram[00000000]
+
+if there is no carry-on
+out[]a[]b[0]aRev[0]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[0]aRev[1]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[0]aRev[0]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[0]aRev[1]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+
+else
+out[]a[]b[1]aRev[0]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[1]aRev[1]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[1]aRev[0]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[1]aRev[1]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+
 //TODO: temporary exit (set endOfProgram to true)
-out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[11111111]
+out[]a[]b[]aRev[]bRev[]endOfLoop[00000111]endOfProgram[00000000]:out[]a[]b[]aRev[]bRev[]endOfLoop[00000111]endOfProgram[11111111]
+
