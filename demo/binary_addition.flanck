@@ -40,7 +40,7 @@ out[]a[]b[]aRev[]bRev[]endOfLoop[00000100]endOfProgram[00000000]:out[]a[]b[]aRev
 //TODO: valid until here
 
 /*
-TODO: wrong behavior for input (calculates to high) ../../demo/binary_addition.flanck -b -b 0 0000001111100111 00000101
+TODO: stacks are calculated bitwise from top not from bottom, remove previous reverse to prevent that behaviour
 tested inputs:
     ../../demo/binary_addition.flanck -b -b 0 0000001111100111 00000101
     ../../demo/binary_addition.flanck -b -b 0 00000101 00000101
@@ -66,8 +66,8 @@ out[]a[]b[0]aRev[1]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1
 
 else
 out[]a[]b[1]aRev[0]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
-out[]a[]b[1]aRev[1]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
-out[]a[]b[1]aRev[0]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[1]aRev[1]bRev[0]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
+out[]a[]b[1]aRev[0]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[0]b[0]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
 out[]a[]b[1]aRev[1]bRev[1]endOfLoop[00000111]endOfProgram[00000000]:out[]a[1]b[1]aRev[]bRev[]endOfLoop[00000110]endOfProgram[00000000]
 
 //TODO: temporary exit (set endOfProgram to true)
