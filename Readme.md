@@ -40,8 +40,6 @@ Keller sind Stacks, daher werden sie immer von oben betrachtet (oben->`[01010]`)
 Alle Terminale, welche nicht zur Sprache gehören werden ignoriert.
 Im Code ist ein Stack ein vector<> und dabei ist Index 0 oben.
 
-<!--TODO: Programmeingabe muss richtig rum eingelesen werden, alles andere angepasst werden-->
-
 ## LIBRARY USAGE
 
 1. create a folder called `libs` in your project root
@@ -62,24 +60,30 @@ Im Code ist ein Stack ein vector<> und dabei ist Index 0 oben.
       #include "flanck.h"
    ```
    
-## DEMO <!--TODO: does not work that way-->
+## DEMO
 
 Zuerst muss die Library kompiliert werden.
 Dazu muss in das Verzeichnis `library` navigiert werden.
-Anschließend muss `compile.sh` ausgeführt werden.
+Anschließend muss `compile.sh`, beziehungsweise `g++ -shared -fPIC -I./include ./src/* -o flanck.so` ausgeführt werden.
 
 Nun kann `to_path.sh` ebenfalls ausgeführt werden, 
 um die Bibliothek global verwenden zu können.
 Da hier Zugriff auf `/usr/local/lib` benötigt wird,
-muss mit `sudo` ausgeführt werden.
+muss mit `sudo` ausgeführt werden. Alternativ kann auch
+```shell
+export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
+sudo cp flanck.so /usr/local/lib
+```
+ausgeführt werden.
 
-Im Verzeichnis `demo`muss nun ebenfalls `compile.sh`ausgeführt werden.
+Im Verzeichnis `demo`muss nun ebenfalls `compile.sh`, 
+beziehungsweise `g++ -I../library/include -L../library ../library/flanck.so main.cpp -o demo` ausgeführt werden.
 Jetzt kann `run_from_path.sh` oder `run_from_libary.sh` ausgeführt werden.
 Um `run_from_path.sh` zu verwenden, muss vorher die Library global installiert worden sein.
 
 Es sollte nun `Hello World` in der Konsole ausgegeben werden.
 
-### USAGE <!--TODO: does not fit to #SYNTAX-->
+### USAGE
 
 Um eine ``.flanck`` Datei auszuführen muss der Pfad zur Datei angegeben werden.
 Optional kann zusätzlich ein Input angegeben werden.
