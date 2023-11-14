@@ -1,15 +1,17 @@
 cmake_minimum_required(VERSION 3.23)
-project(flanck)
 
-set(CMAKE_CXX_STANDARD 20)
+project(flanck VERSION 1.0)
 
-add_executable(
-        flanck
-        src/main.cpp
-        src/Token.h
-        src/Stack.h
-        src/Statement.h
-        src/Lexer.cpp src/Lexer.h
-        src/Parser.cpp src/Parser.h
-        src/Interpreter.cpp src/Interpreter.h
+add_subdirectory(library)
+
+add_subdirectory(demo)
+
+add_library(
+        ${PROJECT_NAME} SHARED $<TARGET_OBJECTS:simple_library>
+)
+
+#TODO: do not include both
+target_include_directories(
+        flanck PUBLIC library/include
+        flanck PUBLIC library
 )

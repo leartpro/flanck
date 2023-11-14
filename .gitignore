@@ -1,7 +1,4 @@
 # Project exclude paths
 /cmake-build-debug/
-/.idea/.gitignore
-/.idea/flanck.iml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/vcs.xml
+/demo/demo
+/library/flanck.so
