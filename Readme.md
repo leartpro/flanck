@@ -45,7 +45,7 @@ Im Code ist ein Stack ein vector<> und dabei ist Index 0 oben.
 1. create a folder called `libs` in your project root
 2. checkout the `libs` folder and run
     ```sh
-      git clone https://github.com/leartpro/flanck.git -b library
+      git clone https://github.com/leartpro/flanck.git
     ```
 3. configure your CMakeLists.txt
     ```cmake
