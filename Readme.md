@@ -11,6 +11,7 @@ Der `Lexer` benötigt eine `char*` als Parameter und kann dann dem `Parser`als P
 Dieser wiederum kann dem `Interpreter`als Parameter übergeben werden.
 `Interpreter.interpret()` interpretiert den übergebenen Code.
 Anschließend kann der Ausgabe-`Stack` abgerufen und ausgegeben werden.
+Die Demo zeigt eine beispielhafte Verwendung der Library und stellt einen voll funktionalen Flanck Interpreter dar.
 
 ### IDEA
 
@@ -123,22 +124,28 @@ Um einen Keller zu überspringen, kann `_` verwendet werden.
 ```
 Hier wird nur auf den zweiten und dritten Keller gelegt.
 
-### EXAMPLES <!--TODO: incorrect syntax and thrash example-->
 
-```shell
-    [][0]:[0][0]
-    [][0]:[1][10]
-    [][10]:[0][110]
-    [][110]:[0][1110]
-    [][1110]:[1][110]
-    [][110]:[0][10]
-    [][10]:[0][0]
-    [][0]:[0][1]
+```text
+initialisation
+[][][][][][0]:[][][][0][1][]
+loop condition
+[][][][][0][]:[][][][][1][]
+addition
+[][0]b[0][0][1][]:[0][][][0][0][]
+[][0]b[1][0][1][]:[1][][][0][0][]
+[][1]b[0][0][1][]:[1][][][0][0][]
+[][1]b[1][0][1][]:[0][][][1][0][]
+addition with carry on
+[][0]b[0][1][1][]:[1][][][0][0][]
+[][0]b[1][1][1][]:[0][][][0][0][]
+[][1]b[0][1][1][]:[0][][][0][0][]
+[][1]b[1][1][1][]:[1][][][1][0][]
 ```
 
-Dieses Beispiel zeigt, wie der Buchstabe `H` bitweise aufgebaut wird.
-Da die Bedingung in der ersten Anweisung nur erfüllt ist, wenn eine `0` auf dem zweiten Stapel liegt
-und eine Ausgabe in Ascii gewünscht ist, eignet sich der folgende Aufruf:
+Dieses Beispiel stellt einen einfachen Rechner zweier Binärzahlen auf der gleichen Architektur (z.B 8Bit) dar.
+Eingabe und Ausgabe erfolgt in Binär und
+Da die Bedingung in der ersten Anweisung nur erfüllt ist, wenn eine `0` auf dem sechsten Stapel liegt
+und eine Ausgabe in Binär gewünscht ist, eignet sich zum Beispiel der folgende Aufruf:
 ```sh
-    $ flanck example.flanck -b -a _ 0
+    $ ../../demo/addition.flanck -b -b _ 0010 0011 _ _ 0
 ```

@@ -1,12 +1,12 @@
-out[0]a[]b[]carryOn[]endOfProgram[]:out[]a[]b[]carryOn[]endOfProgram[1]:
-out[]a[]b[]carryOn[]endOfProgram[0]:out[]a[]b[]carryOn[]endOfProgram[1]:
+out[]a[]b[]carryOn[]endOfProgram[]init[0]:out[]a[]b[]carryOn[0]endOfProgram[1]init[]
+out[]a[]b[]carryOn[]endOfProgram[0]init[]:out[]a[]b[]carryOn[]endOfProgram[1]init[]
 
-out[]a[0]b[0]carryOn[0]endOfProgram[1]:out[0]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[0]b[1]carryOn[0]endOfProgram[1]:out[1]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[1]b[0]carryOn[0]endOfProgram[1]:out[1]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[1]b[1]carryOn[0]endOfProgram[1]:out[0]a[]b[]carryOn[1]endOfProgram[0]:
+out[]a[0]b[0]carryOn[0]endOfProgram[1]init[]:out[0]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[0]b[1]carryOn[0]endOfProgram[1]init[]:out[1]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[1]b[0]carryOn[0]endOfProgram[1]init[]:out[1]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[1]b[1]carryOn[0]endOfProgram[1]init[]:out[0]a[]b[]carryOn[1]endOfProgram[0]init[]
 
-out[]a[0]b[0]carryOn[1]endOfProgram[1]:out[1]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[0]b[1]carryOn[1]endOfProgram[1]:out[0]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[1]b[0]carryOn[1]endOfProgram[1]:out[0]a[]b[]carryOn[0]endOfProgram[0]:
-out[]a[1]b[1]carryOn[1]endOfProgram[1]:out[1]a[]b[]carryOn[1]endOfProgram[0]:
+out[]a[0]b[0]carryOn[1]endOfProgram[1]init[]:out[1]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[0]b[1]carryOn[1]endOfProgram[1]init[]:out[0]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[1]b[0]carryOn[1]endOfProgram[1]init[]:out[0]a[]b[]carryOn[0]endOfProgram[0]init[]
+out[]a[1]b[1]carryOn[1]endOfProgram[1]init[]:out[1]a[]b[]carryOn[1]endOfProgram[0]init[]
